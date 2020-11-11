@@ -11,14 +11,20 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['namespace' => 'Blog\Admin', 'prefix' => 'admin/blog'], function () {
+	$methods = ['index','create','store','edit','update'];
+	Route::resource('categories', 'CategoryController')->only($methods)->names('blog.admin.categories');
+});
+
 //Route::get('/', 'Blog\PostController@index');
-Route::group(['namespace'=>'Blog','prefix' => 'blog'],function (){
-	Route::resource('posts','PostController')->names('blog.posts');
+Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
+	Route::resource('posts', 'PostController')->names('blog.posts');
 });
