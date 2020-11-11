@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/', 'Blog\PostController@index');
+Route::group(['namespace'=>'Blog','prefix' => 'blog'],function (){
+	Route::resource('posts','PostController')->names('blog.posts');
 });
