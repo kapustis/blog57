@@ -32,18 +32,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="slug">Заголовок</label>
+                            <label for="slug">Иденфикатор</label>
                             <input
                                     type="text"
                                     name="slug"
                                     id="slug"
                                     class="form-control"
-                                    value="{{$item->title}}"
+                                    value="{{$item->slug}}"
                             >
                         </div>
 
                         <div class="form-group">
-                            <label for="parent_id">Заголовок</label>
+                            <label for="parent_id">Родитель</label>
                             <select class="form-control" name="parent_id" id="parent_id" required pleceholder="Выберите категорию">
                                 @foreach($list as $option)
                                     <option value="{{$option->id}}" @if($option->id == $item->parent_id) selected @endif>
@@ -55,7 +55,8 @@
 
                         <div class="form-group">
                             <label for="description">Описание</label>
-                            <textarea class="form-control" name="description" id="description" cols="30" rows="3"></textarea>
+                            <textarea class="form-control" name="description" id="description" cols="30" rows="3">{{ old('description',$item->description) }}
+                            </textarea>
                         </div>
                     </div>
                 </div>
