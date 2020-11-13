@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 
@@ -55,24 +57,24 @@ class CategoryController extends BaseController
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param \Illuminate\Http\Request $request
+	 * @param BlogCategoryUpdateRequest $request
 	 * @param  $id
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @return RedirectResponse
 	 */
-	public function update(Request $request, $id)
+	public function update(BlogCategoryUpdateRequest $request, $id)
 	{
 //		dd(__METHOD__, $request->all(),$id);
 
 		$item = BlogCategory::find($id);
-		if (empty($item)){
-			return back()->withErrors(['msg'=>"Запись ненайдена id=[$id]"])->withInput();
+		if (empty($item)) {
+			return back()->withErrors(['msg' => "Запись ненайдена id=[$id]"])->withInput();
 		}
 		$data = $request->all();
 		$res = $item->fill($data)->save();
-		if ($res){
-			return redirect()->route('blog.admin.categories.edit',$item->id)->with(['success'=> 'Успешно сщхранено']);
-		}else{
-			return back()->withErrors(['msg'=>"Ошибка сохранения id=[$id]"])->withInput();
+		if ($res) {
+			return redirect()->route('blog.admin.categories.edit', $item->id)->with(['success' => 'Успешно сщхранено']);
+		} else {
+			return back()->withErrors(['msg' => "Ошибка сохранения id=[$id]"])->withInput();
 		}
 	}
 
