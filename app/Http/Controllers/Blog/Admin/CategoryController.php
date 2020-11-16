@@ -21,7 +21,6 @@ class CategoryController extends BaseController
 
 	/**
 	 * Show the form for creating a new resource.
-	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\View\View
 	 */
 	public function create()
@@ -66,6 +65,8 @@ class CategoryController extends BaseController
 	{
 		$item = BlogCategory::findOrFail($id);
 		$catList = BlogCategory::all();
+//		$item = $categoryRepository->getEdit($id);
+//		$catList = $categoryRepository->getForComboBox();
 		return view('blog.admin.categories.edit', compact('item', 'catList'));
 	}
 
@@ -78,14 +79,12 @@ class CategoryController extends BaseController
 	 */
 	public function update(BlogCategoryUpdateRequest $request, $id)
 	{
-//		dd(__METHOD__, $request->all(),$id);
-
 		$item = BlogCategory::find($id);
 		if (empty($item)) {
 			return back()->withErrors(['msg' => "Запись ненайдена id=[$id]"])->withInput();
 		}
 		$data = $request->all();
-		$res = $item->fill($data)->save();
+		$res = $item->update($data);
 		if ($res) {
 			return redirect()->route('blog.admin.categories.edit', $item->id)->with(['success' => 'Успешно сщхранено']);
 		} else {
