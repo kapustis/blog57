@@ -1,7 +1,7 @@
 @php
     /**
      * @var \App\Models\BlogCategory $item
-     * @var \Illuminate\Support\Collection $list
+     * @var \Illuminate\Support\Collection $catList
      **/
 @endphp
 
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label for="parent_id">Родитель</label>
                             <select class="form-control" name="parent_id" id="parent_id" required pleceholder="Выберите категорию">
-                                @foreach($list as $option)
+                                @foreach($catList as $option)
                                     <option value="{{$option->id}}" @if($option->id == $item->parent_id) selected @endif>
                                         {{ $option->id }} . {{$option->title}}
                                     </option>
@@ -55,7 +55,11 @@
 
                         <div class="form-group">
                             <label for="description">Описание</label>
-                            <textarea class="form-control" name="description" id="description" cols="30" rows="3">{{ old('description',$item->description) }}
+                            <textarea
+                                    class="form-control"
+                                    name="description"
+                                    id="description"
+                                    cols="30" rows="3">{{ old('description',$item->description) }}
                             </textarea>
                         </div>
                     </div>

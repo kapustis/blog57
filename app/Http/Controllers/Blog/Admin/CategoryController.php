@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Requests\BlogCategoryUpdateRequest;
+use App\Http\Requests\StoreBlogCategory;
 use App\Models\BlogCategory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-
 
 class CategoryController extends BaseController
 {
@@ -23,22 +22,38 @@ class CategoryController extends BaseController
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\View\View
 	 */
 	public function create()
 	{
-		//
+		$item = new BlogCategory();
+		$catList = BlogCategory::all();
+		return view('blog.admin.categories.edit', compact('item', 'catList'));
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param \Illuminate\Http\Request $request
-	 * @return \Illuminate\Http\Response
+	 * @param StoreBlogCategory $request
+	 * @return RedirectResponse
 	 */
-	public function store(Request $request)
+	public function store(StoreBlogCategory $request)
 	{
-		//
+//				dd(__METHOD__, $request->all());
+				$data = $request->input();
+				if (empty($data['slug'])){
+					$data['slug']= str_slug($data['title']);
+				}
+				$item = (new BlogCategory())->create($data);
+//				$item = new BlogCategory($data);
+//				$item->save();
+
+				if ($item){
+						return redirect()->route('blog.categories.edit',[$item->id])
+							->with(['success' => 'Успешно сохоанено']);
+				}else{
+					return back()->withErrors(['msg' => 'Ощибка сохранения'])->withInput();
+				}
 	}
 
 	/**
@@ -50,8 +65,8 @@ class CategoryController extends BaseController
 	public function edit($id)
 	{
 		$item = BlogCategory::findOrFail($id);
-		$list = BlogCategory::all();
-		return view('blog.admin.categories.edit', compact('item', 'list'));
+		$catList = BlogCategory::all();
+		return view('blog.admin.categories.edit', compact('item', 'catList'));
 	}
 
 	/**
