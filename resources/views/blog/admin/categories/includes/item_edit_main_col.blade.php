@@ -47,7 +47,8 @@
                             <select class="form-control" name="parent_id" id="parent_id" required pleceholder="Выберите категорию">
                                 @foreach($catList as $option)
                                     <option value="{{$option->id}}" @if($option->id == $item->parent_id) selected @endif>
-                                        {{ $option->id }} . {{$option->title}}
+{{--                                        {{ $option->id }} . {{$option->title}}--}}
+                                        {{ $option->id_title}}
                                     </option>
                                 @endforeach
                             </select>
