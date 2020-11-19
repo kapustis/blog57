@@ -28,7 +28,16 @@ class PostController extends BaseController
 	 */
 	public function index()
 	{
-		return view('blog.admin.posts.index');
+		$posts = $this->blogPostRepository->getAllWithPaginate(20);
+//		dd($posts);
+		return view('blog.admin.posts.index',compact('posts'));
+	}
+
+	public function create(){
+		dd(__METHOD__);
+	}
+	public function edit($id){
+		dd(__METHOD__,$id);
 	}
 
 }

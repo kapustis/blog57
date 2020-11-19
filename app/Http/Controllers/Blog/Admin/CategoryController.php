@@ -7,7 +7,11 @@ use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 /**
  * Управление категориями блога
@@ -26,7 +30,7 @@ class CategoryController extends BaseController
 	}
 
 	/**
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\View\View
+	 * @return Factory|Application|Response|View
 	 */
 	public function index()
 	{
@@ -37,7 +41,7 @@ class CategoryController extends BaseController
 
 	/**
 	 * Show the form for creating a new resource.
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\View\View
+	 * @return Factory|Application|Response|View
 	 */
 	public function create()
 	{
@@ -76,7 +80,7 @@ class CategoryController extends BaseController
 	 *
 	 * @param $id
 	 * @param BlogCategoryRepository $categoryRepository
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\View\View|void
+	 * @return Factory|Application|View|void
 	 */
 	public function edit($id)
 	{
