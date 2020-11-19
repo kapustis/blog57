@@ -38,13 +38,13 @@
 								@if(!$item->is_published) style="background-color:#f66D9b;" @endif>
 									<td>{{$item->id}}</td>
 									<td>{{$item->creator->name}}</td>
-									<td>{{$item->category_id}}</td>
+									<td>{{$item->category->title}}</td>
 									<td>
 										<a href="{{ route('blog.admin.posts.edit', $item->id) }}" class="badge-dark">
 											{{$item->title}}
 										</a>
 									</td>
-									<td>{{$item->created_at}}</td>
+									<td>{{$item->is_published ? \Carbon\Carbon::parse($item->published_at)->format('d.M H:i'): ''}}</td>
 								</tr>
 							@endforeach
 							</tbody>

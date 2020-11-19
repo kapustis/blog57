@@ -28,7 +28,7 @@ class PostController extends BaseController
 	 */
 	public function index()
 	{
-		$posts = $this->blogPostRepository->getAllWithPaginate(20);
+		$posts = $this->blogPostRepository->getAllWithPaginate(25);
 //		dd($posts);
 		return view('blog.admin.posts.index',compact('posts'));
 	}

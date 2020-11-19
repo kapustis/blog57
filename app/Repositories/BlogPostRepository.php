@@ -19,6 +19,7 @@ class BlogPostRepository extends CoreRepository
 		// TODO: Implement getModelClass() method.\
 		return Model::class;
 	}
+
 	/**
 	 * @param null $perPage
 	 * @return LengthAwarePaginator
@@ -26,15 +27,17 @@ class BlogPostRepository extends CoreRepository
 	public function getAllWithPaginate($perPage = null)
 	{
 		$fields = [
-			'id', 'title','category_id',
-			'is_published', 'user_id', 'created_at'
+			'id', 'title', 'slug', 'category_id',
+			'user_id', 'is_published', 'published_at'
 		];
 
 		$res = $this->startConditions()
 			->select($fields)
 			->orderBy('id', 'DESC')
+			->with(['category:id,title,slug', 'creator:id,name'])
 			->paginate($perPage);
-
+//			->get()->first();
+//		dd($res);
 		return $res;
 	}
 }
