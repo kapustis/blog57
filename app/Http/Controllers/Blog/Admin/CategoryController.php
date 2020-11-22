@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -61,7 +62,7 @@ class CategoryController extends BaseController
 //				dd(__METHOD__, $request->all());
 		$data = $request->input();
 		if (empty($data['slug'])) {
-			$data['slug'] = str_slug($data['title']);
+			$data['slug'] = Str::slug($data['title']);
 		}
 		$item = (new BlogCategory())->create($data);
 //				$item = new BlogCategory($data);
@@ -79,7 +80,6 @@ class CategoryController extends BaseController
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param $id
-	 * @param BlogCategoryRepository $categoryRepository
 	 * @return Factory|Application|View|void
 	 */
 	public function edit($id)

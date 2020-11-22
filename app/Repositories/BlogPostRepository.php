@@ -40,4 +40,12 @@ class BlogPostRepository extends CoreRepository
 //		dd($res);
 		return $res;
 	}
+
+    /**
+     * @param $id
+     * @return Model
+     */
+    public function getEdit($id){
+        return $this->startConditions()->find($id);
+    }
 }
