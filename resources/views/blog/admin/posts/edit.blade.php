@@ -8,7 +8,7 @@
             <form method="post" action="{{ route('blog.admin.posts.update',$item->id) }}">
                 @method('PATCH')
         @else
-            <form method="post" action="{{ route('blog.admin.posts.store') }} }}">
+            <form method="post" action="{{ route('blog.admin.posts.store') }}">
         @endif
              @csrf
                 <div class="row justify-content-center">
@@ -24,6 +24,7 @@
              <br>
              <form method="post" action="{{ route('blog.admin.posts.destroy',$item->id) }}">
                  @method('DELETE')
+                 @csrf
                  <div class="row justify-content-center">
                      <div class="col-md-8">
                          <div class="card card-block">
@@ -34,7 +35,6 @@
                      </div>
                      <div class="col-md-3"></div>
                  </div>
-                 @csrf
              </form>
         @endif
     </div>

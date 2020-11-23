@@ -27,13 +27,13 @@
                         <div class="form-group">
                             <label for="title">Заголовок</label>
                             <input type="text" name="title"
-                                   id="title" value="{{$item->title}}"
+                                   id="title" value="{{old('title',$item->title)}}"
                                    class="form-control" minlength="3"
                                    required
                             >
                         </div>
                         <div class="form-group">
-                            <label for="content_raw">Заголовок</label>
+                            <label for="content_raw">Текст поста</label>
                             <textarea name="content_raw" id="content_raw"
                                       class="form-control" rows="20"
                             >{{old('content_raw',$item->content_raw)}}</textarea>

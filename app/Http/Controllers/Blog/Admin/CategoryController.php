@@ -34,7 +34,7 @@ class CategoryController extends BaseController
 	 */
 	public function index()
 	{
-		$categories =  $this->blogCategoryRepository->getAllWithPaginate(3);
+		$categories = $this->blogCategoryRepository->getAllWithPaginate(3);
 		return view('blog.admin.categories.index', compact('categories'));
 	}
 
@@ -64,7 +64,7 @@ class CategoryController extends BaseController
 		if ($item) {
 			return redirect()
 				->route('blog.admin.categories.edit', [$item->id])
-				->with(['success' => 'Успешно сохоанено']);
+				->with(['success' => 'Успешно сохранено']);
 		} else {
 			return back()
 				->withErrors(['msg' => 'Ощибка сохранения'])

@@ -25,13 +25,17 @@ class BlogPost extends Model
 {
 	use SoftDeletes;
 
+	const UNKNOWN_USER = 1;
+
 //	protected $guarded = [
 //		'_method',
 //		'_token'
 //	];
 
 	protected $fillable = [
-		'title','slug','category_id','content_html','content_raw','excerpt','published_at','is_published','user_id'
+		'title', 'slug', 'category_id',
+		'content_html', 'content_raw', 'excerpt',
+		'published_at', 'is_published',
 	];
 
 	/**
