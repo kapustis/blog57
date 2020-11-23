@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
-
 use App\Http\Requests\BlogPostUpdateRequest;
 use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class PostController extends BaseController
 {
@@ -28,7 +28,7 @@ class PostController extends BaseController
 	}
 
 	/**
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @return Application|Factory|View
 	 */
 	public function index()
 	{
@@ -37,7 +37,7 @@ class PostController extends BaseController
 	}
 
 	/**
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @return Application|Factory|View
 	 */
 	public function create()
 	{
@@ -53,7 +53,7 @@ class PostController extends BaseController
 
 	/**
 	 * @param $id
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @return Application|Factory|View
 	 */
 	public function edit($id)
 	{
@@ -65,25 +65,24 @@ class PostController extends BaseController
 
 	public function update(BlogPostUpdateRequest $request, $id)
 	{
-
 		$item = $this->blogPostRepository->getEdit($id);
 		if (empty($item)) {
-			return back()->withErrors(['msg' => "Запись id[{$id}] не найдена"])->withInput();
+			return back()
+				->withErrors(['msg' => "Запись id[{$id}] не найдена"])
+				->withInput();
 		}
 		$data = $request->all();
-		if (empty($data['slug'])) {
-			$data['slug'] = Str::slug($data['title']);
-		}
-		if (empty($item->published_at) && $data['is_published']) {
-			$data['published_at'] = Carbon::now();
-		}
 
 		$res = $item->update($data);
 
 		if ($res) {
-			return redirect()->route('blog.admin.posts.edit',$item->id)->with(['success' => 'Успешно обновлено']);
+			return redirect()
+				->route('blog.admin.posts.edit',$item->id)
+				->with(['success' => 'Успешно обновлено']);
 		} else {
-			return back()->withErrors(['msg' => "Ошибка сохранения"])->withInput();
+			return back()
+				->withErrors(['msg' => "Ошибка сохранения"])
+				->withInput();
 		}
 	}
 

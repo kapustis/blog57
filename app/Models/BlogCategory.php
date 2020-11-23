@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property mixed id
+ * @property int id
+ * @property string slug
+ * @property string title
+ * @property string description
+ * @property int parent_id
  */
 class BlogCategory extends Model
 {

@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                @if($item)
+                @if($item->is_published)
                     Опубликовано
                 @else
                     Черновик
@@ -52,14 +52,14 @@
                         </div>
                         <div class="form-group">
                             <label for="slug">Индентификатор</label>
-                            <input type="text" id="slug"
+                            <input type="text" id="slug" name="slug"
                                    value="{{$item->slug}}"
                                    class="form-control"
                             >
                         </div>
                         <div class="form-group">
                             <label for="excerpt">Выдержка</label>
-                            <textarea type="text" id="excerpt" class="form-control" rows="3"
+                            <textarea type="text" id="excerpt" name="excerpt" class="form-control" rows="3"
                             >{{old('excerpt',$item->excerpt)}}</textarea>
                         </div>
                         <div class="form-check">

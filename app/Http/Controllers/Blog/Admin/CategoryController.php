@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -35,7 +34,6 @@ class CategoryController extends BaseController
 	 */
 	public function index()
 	{
-//		$categories = BlogCategory::paginate(15);
 		$categories =  $this->blogCategoryRepository->getAllWithPaginate(3);
 		return view('blog.admin.categories.index', compact('categories'));
 	}
@@ -59,20 +57,18 @@ class CategoryController extends BaseController
 	 */
 	public function store(StoreBlogCategory $request)
 	{
-//				dd(__METHOD__, $request->all());
 		$data = $request->input();
-		if (empty($data['slug'])) {
-			$data['slug'] = Str::slug($data['title']);
-		}
+
 		$item = (new BlogCategory())->create($data);
-//				$item = new BlogCategory($data);
-//				$item->save();
 
 		if ($item) {
-			return redirect()->route('blog.categories.edit', [$item->id])
+			return redirect()
+				->route('blog.admin.categories.edit', [$item->id])
 				->with(['success' => 'Успешно сохоанено']);
 		} else {
-			return back()->withErrors(['msg' => 'Ощибка сохранения'])->withInput();
+			return back()
+				->withErrors(['msg' => 'Ощибка сохранения'])
+				->withInput();
 		}
 	}
 
@@ -85,7 +81,9 @@ class CategoryController extends BaseController
 	public function edit($id)
 	{
 		$item = $this->blogCategoryRepository->getEdit($id);
-		if (empty($item)) dd('no edit item category');
+
+		if (empty($item)) abort(404);
+
 		$catList = $this->blogCategoryRepository->getForComboBox();
 		return view('blog.admin.categories.edit', compact('item', 'catList'));
 	}
@@ -101,14 +99,20 @@ class CategoryController extends BaseController
 	{
 		$item = $this->blogCategoryRepository->getEdit($id);
 		if (empty($item)) {
-			return back()->withErrors(['msg' => "Запись ненайдена id=[$id]"])->withInput();
+			return back()
+				->withErrors(['msg' => "Запись ненайдена id=[$id]"])
+				->withInput();
 		}
 		$data = $request->all();
 		$res = $item->update($data);
 		if ($res) {
-			return redirect()->route('blog.admin.categories.edit', $item->id)->with(['success' => 'Успешно сщхранено']);
+			return redirect()
+				->route('blog.admin.categories.edit', $item->id)
+				->with(['success' => 'Успешно сщхранено']);
 		} else {
-			return back()->withErrors(['msg' => "Ошибка сохранения id=[$id]"])->withInput();
+			return back()
+				->withErrors(['msg' => "Ошибка сохранения id=[$id]"])
+				->withInput();
 		}
 	}
 
