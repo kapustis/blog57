@@ -34,7 +34,7 @@ class CategoryController extends BaseController
 	 */
 	public function index()
 	{
-		$categories = $this->blogCategoryRepository->getAllWithPaginate(3);
+		$categories = $this->blogCategoryRepository->getAllWithPaginate(10);
 		return view('blog.admin.categories.index', compact('categories'));
 	}
 
