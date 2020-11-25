@@ -2,18 +2,7 @@
 
 @section('content')
 	<div class="container">
-		@if( session('success'))
-			<div class="row justify-content-center">
-				<div class="col-md-12">
-					<div class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&cupcap;</span>
-						</button>
-						{{session()->get('success')}}
-					</div>
-				</div>
-			</div>
-		@endif
+		@include('blog.admin.posts.includes.result_messages')
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -34,8 +23,10 @@
 							<tbody>
 							@foreach($posts as $item)
 								@php /** @var \App\Models\BlogPost $item */ @endphp
-								<tr @if($item->is_published) style="background-color:#2a9055;" @endif
-								@if(!$item->is_published) style="background-color:#f66D9b;" @endif>
+								<tr
+										@if($item->is_published)  style="background-color:#2a9055;" @endif
+										@if(!$item->is_published) style="background-color:#f66D9b;" @endif
+								>
 									<td>{{$item->id}}</td>
 									<td>{{$item->creator->name}}</td>
 									<td>{{$item->category->title}}</td>

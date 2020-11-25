@@ -97,10 +97,15 @@ class PostController extends BaseController
 		}
 	}
 
+	/**
+	 * @param $id
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function destroy($id)
 	{
 //		dd(__METHOD__, request()->all(), $id);
-		$res = BlogPost::destroy($id);
+		$res = BlogPost::destroy($id); /** мягкое удаление "use SoftDeletes" **/
+		//$res = BlogPost::find($id)->forceDelete();/** Принудительное удаление одного экземпляра модели ...  **/
 
 		if ($res){
 			return redirect()
