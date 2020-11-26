@@ -27,6 +27,7 @@ class BlogCategoryObserver
 	 */
 	public function creating(BlogCategory $blogCategory)
 	{
+//		dd(__METHOD__,$blogCategory);
 		$this->setSlug($blogCategory);
 	}
 
