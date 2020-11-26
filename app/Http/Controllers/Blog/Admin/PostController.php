@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Requests\BlogPostCreateRequest;
 use App\Http\Requests\BlogPostUpdateRequest;
+use App\Jobs\BlogPostAfterCreateJob;
+use App\Jobs\BlogPostAfterDeleteJob;
 use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class PostController extends BaseController
@@ -52,6 +55,7 @@ class PostController extends BaseController
 		$item = BlogPost::create($data);
 
 		if ($item) {
+			$this->dispatch(new BlogPostAfterCreateJob($item));
 			return redirect()
 				->route('blog.admin.posts.edit', [$item->id])
 				->with(['success' => 'Успешно сохранено']);
@@ -99,15 +103,15 @@ class PostController extends BaseController
 
 	/**
 	 * @param $id
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @return RedirectResponse
 	 */
 	public function destroy($id)
 	{
-//		dd(__METHOD__, request()->all(), $id);
 		$res = BlogPost::destroy($id); /** мягкое удаление "use SoftDeletes" **/
 		//$res = BlogPost::find($id)->forceDelete();/** Принудительное удаление одного экземпляра модели ...  **/
 
 		if ($res){
+			$this->dispatch(new BlogPostAfterDeleteJob($res));
 			return redirect()
 				->route('blog.admin.posts.index')
 				->with(['success' => "Запись id[{$id}] удалена"]);
