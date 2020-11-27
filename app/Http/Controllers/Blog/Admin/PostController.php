@@ -9,6 +9,7 @@ use App\Jobs\BlogPostAfterDeleteJob;
 use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
+
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -107,15 +108,18 @@ class PostController extends BaseController
 	 */
 	public function destroy($id)
 	{
-		$res = BlogPost::destroy($id); /** мягкое удаление "use SoftDeletes" **/
-		//$res = BlogPost::find($id)->forceDelete();/** Принудительное удаление одного экземпляра модели ...  **/
+		/** мягкое удаление "use SoftDeletes" **/
+		$res = BlogPost::destroy($id);
+		/** Принудительное удаление одного экземпляра модели ...  **/
+		//$res = BlogPost::find($id)->forceDelete();
 
-		if ($res){
-			$this->dispatch(new BlogPostAfterDeleteJob($res));
+		if ($res) {
+			//$this->dispatch(new BlogPostAfterDeleteJob($id));
+			BlogPostAfterDeleteJob::dispatch($id)->delay(25);
 			return redirect()
 				->route('blog.admin.posts.index')
 				->with(['success' => "Запись id[{$id}] удалена"]);
 		}
-		return back()->withErrors(['msg'=>'Ошибка']);
+		return back()->withErrors(['msg' => 'Ошибка']);
 	}
 }
