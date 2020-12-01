@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-	    Schema::defaultStringLength(191);
-	    BlogPost::observe(BlogPostObserver::class);
-	    BlogCategory::observe(BlogCategoryObserver::class);
+		Schema::defaultStringLength(191);
+		BlogPost::observe(BlogPostObserver::class);
+		BlogCategory::observe(BlogCategoryObserver::class);
     }
 }

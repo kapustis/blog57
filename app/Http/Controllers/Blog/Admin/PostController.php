@@ -52,6 +52,7 @@ class PostController extends BaseController
 
 	public function store(BlogPostCreateRequest $request)
 	{
+//		dd($request->all());
 		$data = $request->input();
 		$item = BlogPost::create($data);
 
