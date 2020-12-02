@@ -14,21 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return view('welcome');
+    return view('welcome');
 });
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 /** роуты админ части **/
-Route::group(['namespace' => 'Blog\Admin', 'prefix' => 'admin/blog'], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Blog\Admin', 'prefix' => 'admin/blog'], function () {
 	$methods = ['index', 'create', 'store', 'edit', 'update'];
-	Route::resource('categories', 'CategoryController')->only($methods)->names('blog.admin.categories');
+	Route::resource('categories', 'CategoryController')
+		->only($methods)
+		->names('blog.admin.categories');
 	Route::resource('posts','PostController')
 		->except('show')
 		->names('blog.admin.posts');
 });
-/** роуты пользовательской части **/
-Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function () {
-	Route::resource('posts', 'PostController')->names('blog.posts');
-});
-
