@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
@@ -27,7 +27,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Blog\Admin', 'prefix' => 'adm
 	Route::resource('categories', 'CategoryController')
 		->only($methods)
 		->names('blog.admin.categories');
-	Route::resource('posts','PostController')
+	Route::resource('posts', 'PostController')
 		->except('show')
 		->names('blog.admin.posts');
+});
+/**  **/
+Route::group(['prefix' => 'digging_deeper'], function () {
+//	Route::get('collection', [App\Http\Controllers\DiggingDeeperController::class, 'collection'])
+//		->name('digging_deeper.collection');
+	Route::get('process-video', [App\Http\Controllers\DiggingDeeperController::class, 'processVideo'])
+		->name('digging_deeper.process-video');
+	Route::get('prepare-catalog', [App\Http\Controllers\DiggingDeeperController::class, 'prepareCatalog'])
+		->name('digging_deeper.prepare-catalog');
 });
