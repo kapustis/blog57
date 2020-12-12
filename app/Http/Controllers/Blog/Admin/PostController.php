@@ -23,12 +23,15 @@ class PostController extends BaseController
 	/** @var  BlogCategoryRepository * */
 	private $blogCategoryRepository;
 
-	/** postController constructor **/
-	public function __construct()
+	/** postController constructor *
+	 * @param BlogPostRepository $blogPostRepository
+	 * @param BlogCategoryRepository $blogCategoryRepository
+	 */
+	public function __construct(BlogPostRepository $blogPostRepository, BlogCategoryRepository $blogCategoryRepository)
 	{
 		parent::__construct();
-		$this->blogPostRepository = app(BlogPostRepository::class);
-		$this->blogCategoryRepository = app(BlogCategoryRepository::class);
+		$this->blogPostRepository = $blogPostRepository;
+		$this->blogCategoryRepository = $blogCategoryRepository;
 	}
 
 	/**
@@ -75,9 +78,11 @@ class PostController extends BaseController
 	public function edit($id)
 	{
 		$item = $this->blogPostRepository->getEdit($id);
-		if (empty($item)) abort(404);
-		$catList = $this->blogCategoryRepository->getForComboBox();
-		return view('blog.admin.posts.edit', compact('item', 'catList'));
+		if (empty($item)) {
+			abort(404);
+		}
+		$categoryList = $this->blogCategoryRepository->getCategoryList();
+		return view('blog.admin.posts.edit', compact('item', 'categoryList'));
 	}
 
 	public function update(BlogPostUpdateRequest $request, $id)

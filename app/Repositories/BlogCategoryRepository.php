@@ -35,7 +35,7 @@ class BlogCategoryRepository extends CoreRepository
 	 *  Получить список категорий для вывода в выпадающем списке
 	 * @return Collection
 	 */
-	public function getForComboBox()
+	public function getCategoryList()
 	{
 //		return $this->startConditions()->all();
 //		$res[] = $this->startConditions()

@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label for="category_id">Категория</label>
                             <select class="form-control" name="category_id" id="category_id" required pleceholder="Выберите категорию">
-                                @foreach($catList as $option)
+                                @foreach($categoryList as $option)
                                     <option value="{{$option->id}}" @if($option->id == $item->category_id) selected @endif>
                                         {{ $option->id_title}}
                                     </option>
