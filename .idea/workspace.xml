@@ -19,12 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d3a9e2c-7f0d-4d46-a12c-9b870e221a33" name="Default Changelist" comment="queue, jobs, chain -&gt;Очереди - цепочки задач">
+    <list default="true" id="1d3a9e2c-7f0d-4d46-a12c-9b870e221a33" name="Default Changelist" comment="mini fix  code">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Blog/Admin/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Blog/Admin/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Blog/Admin/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Blog/Admin/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/BlogCategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/BlogCategoryRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/blog/admin/posts/includes/item_edit_main_col.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/blog/admin/posts/includes/item_edit_main_col.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +242,7 @@
       <workItem from="1607578559991" duration="894000" />
       <workItem from="1607600207096" duration="1238000" />
       <workItem from="1607672425017" duration="2143000" />
-      <workItem from="1607752577333" duration="840000" />
+      <workItem from="1607752577333" duration="2412000" />
     </task>
     <task id="LOCAL-00001" summary="laravel 5.8* update Laravel Framework 6.20.5">
       <created>1606376342555</created>
@@ -296,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606989245616</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="mini fix  code">
+      <created>1607753654998</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607753654998</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +324,8 @@
     <MESSAGE value="Laravel 6 -&gt; 7" />
     <MESSAGE value="Laravel 7 -&gt; 8" />
     <MESSAGE value="queue, jobs, chain -&gt;Очереди - цепочки задач" />
-    <option name="LAST_COMMIT_MESSAGE" value="queue, jobs, chain -&gt;Очереди - цепочки задач" />
+    <MESSAGE value="mini fix  code" />
+    <option name="LAST_COMMIT_MESSAGE" value="mini fix  code" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2690" y="479" key="#Composer" timestamp="1606376120700">
@@ -355,9 +360,10 @@
       <screen x="1920" y="0" width="1920" height="1200" />
     </state>
     <state width="1877" height="335" key="GridCell.Tab.0.right/0.0.1920.1160/1920.0.1920.1200@1920.0.1920.1200" timestamp="1606747785071" />
-    <state x="2472" y="333" key="Vcs.Push.Dialog.v2" timestamp="1606994382808">
-      <screen x="1920" y="0" width="1920" height="1200" />
+    <state x="552" y="322" key="Vcs.Push.Dialog.v2" timestamp="1607753656773">
+      <screen x="0" y="0" width="1920" height="1160" />
     </state>
+    <state x="552" y="322" key="Vcs.Push.Dialog.v2/0.0.1920.1160/1920.0.1920.1200@0.0.1920.1160" timestamp="1607753656773" />
     <state x="2472" y="333" key="Vcs.Push.Dialog.v2/0.0.1920.1160/1920.0.1920.1200@1920.0.1920.1200" timestamp="1606994382808" />
     <state x="667" y="322" width="585" height="534" key="find.popup" timestamp="1607435657698">
       <screen x="0" y="0" width="1920" height="1160" />
