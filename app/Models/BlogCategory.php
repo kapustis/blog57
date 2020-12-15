@@ -16,27 +16,31 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class BlogCategory extends Model
 {
-	use SoftDeletes;
-	const ROOT_ID = 1;
-	protected $fillable = ['parent_id', 'title', 'slug', 'description'];
+    use SoftDeletes;
 
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function parentCategory()
-	{
-		return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
-	}
+    const ROOT_ID = 1;
+    protected $fillable = ['parent_id', 'title', 'slug', 'description'];
 
-	/**Accessor
-	 * @return string
-	 */
-	public function getParentTitleAttribute(){
-		$title = $this->parentCategory->title ?? (1 ? 'Корень' : '???');
-		return $title;
-	}
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parentCategory()
+    {
+        return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
+    }
 
-//	public function isRoot(){
-//		return $this->id === BlogCategory::ROOT_ID;
-//	}
+    /**Accessor
+     * @return string
+     */
+    public function getParentTitleAttribute()
+    {
+        $title = $this->parentCategory->title ?? (1 ? 'Корень' : '???');
+        return $title;
+    }
+
+//    public function isRoot()
+//    {
+//        return $this->id === BlogCategory::ROOT_ID;
+//    }
+
 }

@@ -24,38 +24,38 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class BlogPost extends Model
 {
-	use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-	const UNKNOWN_USER = 1;
+    const UNKNOWN_USER = 1;
 
-//	protected $guarded = [
-//		'_method',
-//		'_token'
-//	];
+//    protected $guarded = [
+//        '_method',
+//        '_token'
+//    ];
 
-	protected $fillable = [
-		'title', 'slug', 'category_id',
-		'content_html', 'content_raw', 'excerpt',
-		'published_at', 'is_published',
-	];
+    protected $fillable = [
+        'title', 'slug', 'category_id',
+        'content_html', 'content_raw', 'excerpt',
+        'published_at', 'is_published',
+    ];
 
-	/**
-	 * Категория поста
-	 * @return BelongsTo
-	 **/
-	public function category()
-	{
-		return $this->belongsTo(BlogCategory::class, 'category_id');
-	}
+    /**
+     * Категория поста
+     * @return BelongsTo
+     **/
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
 
-	/**
-	 * Автор
-	 * @return BelongsTo
-	 **/
-	public function creator()
-	{
-		return $this->belongsTo(User::class, 'user_id');
-	}
+    /**
+     * Автор
+     * @return BelongsTo
+     **/
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 
 }

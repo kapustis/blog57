@@ -29,9 +29,10 @@ abstract class AbstractJob implements ShouldQueue
         $this->debug('done');
     }
 
-    protected function debug(string $msg){
-    	$class = static::class;
-    	$msg = $msg. "[{$class}]";
-    	Log::info($msg);
+    protected function debug(string $msg)
+    {
+        $class = static::class;
+        $msg = $msg . "[{$class}]";
+        Log::info($msg);
     }
 }

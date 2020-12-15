@@ -12,14 +12,14 @@ use Illuminate\Http\Request;
 
 class PostController extends BaseController
 {
-	/**
-	 * Display a listing of the resource.
-	 * @return Factory|Application|Response|View
-	 */
-	public function index()
-	{
-		$posts = BlogPost::all();
+    /**
+     * Display a listing of the resource.
+     * @return Factory|Application|Response|View
+     */
+    public function index()
+    {
+        $posts = BlogPost::all();
 
-		return view('blog.posts.index', compact('posts'));
-	}
+        return view('blog.posts.index', compact('posts'));
+    }
 }

@@ -13,13 +13,13 @@ class BlogPostAfterCreateJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /** @var BlogPost **/
+    /** @var BlogPost * */
     private $blogPost;
 
-	/**
-	 * Create a new job instance.
-	 * @param BlogPost $blogPost
-	 */
+    /**
+     * Create a new job instance.
+     * @param BlogPost $blogPost
+     */
     public function __construct(BlogPost $blogPost)
     {
         $this->blogPost = $blogPost;

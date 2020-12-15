@@ -20,100 +20,98 @@ use Illuminate\View\View;
 class CategoryController extends BaseController
 {
 
-	/** @var  BlogCategoryRepository */
-	private $blogCategoryRepository;
+    /** @var  BlogCategoryRepository */
+    private $blogCategoryRepository;
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->blogCategoryRepository = app(BlogCategoryRepository::class);
-	}
+    public function __construct(BlogCategoryRepository $blogCategoryRepository)
+    {
+        parent::__construct();
+//        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+        $this->blogCategoryRepository = $blogCategoryRepository;
+    }
 
-	/**
-	 * @return Factory|Application|Response|View
-	 */
-	public function index()
-	{
-		$categories = $this->blogCategoryRepository->getAllWithPaginate(10);
-		return view('blog.admin.categories.index', compact('categories'));
-	}
+    /**
+     * @return Factory|Application|Response|View
+     */
+    public function index()
+    {
+        $categories = $this->blogCategoryRepository->getAllWithPaginate(10);
 
-	/**
-	 * Show the form for creating a new resource.
-	 * @return Factory|Application|Response|View
-	 */
-	public function create()
-	{
-		$item = BlogCategory::make();
-		$catList = $this->blogCategoryRepository->getCategoryList();
-		return view('blog.admin.categories.edit', compact('item', 'catList'));
-	}
+        return view('blog.admin.categories.index', compact('categories'));
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param StoreBlogCategory $request
-	 * @return RedirectResponse
-	 */
-	public function store(StoreBlogCategory $request)
-	{
-		$data = $request->input();
+    }
 
-		$item = BlogCategory::create($data);
+    /**
+     * Show the form for creating a new resource.
+     * @return Factory|Application|Response|View
+     */
+    public function create()
+    {
+        $item = BlogCategory::make();
+        $categoryList = $this->blogCategoryRepository->getCategoryList();
 
-		if ($item) {
-			return redirect()
-				->route('blog.admin.categories.edit', [$item->id])
-				->with(['success' => 'Успешно сохранено']);
-		} else {
-			return back()
-				->withErrors(['msg' => 'Ощибка сохранения'])
-				->withInput();
-		}
-	}
+        return view('blog.admin.categories.edit', compact('item', 'categoryList'));
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param $id
-	 * @return Factory|Application|View|void
-	 */
-	public function edit($id)
-	{
-		$item = $this->blogCategoryRepository->getEdit($id);
+    }
 
-		if (empty($item)) abort(404);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreBlogCategory $request
+     * @return RedirectResponse
+     */
+    public function store(StoreBlogCategory $request)
+    {
+        $data = $request->input();
+        $item = BlogCategory::create($data);
 
-		$catList = $this->blogCategoryRepository->getForComboBox();
-		return view('blog.admin.categories.edit', compact('item', 'catList'));
-	}
+        if ($item) {
+            return redirect()->route('blog.admin.categories.edit', [$item->id])->with(['success' => 'Успешно сохранено']);
+        }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param BlogCategoryUpdateRequest $request
-	 * @param  $id
-	 * @return RedirectResponse
-	 */
-	public function update(BlogCategoryUpdateRequest $request, $id)
-	{
-		$item = $this->blogCategoryRepository->getEdit($id);
-		if (empty($item)) {
-			return back()
-				->withErrors(['msg' => "Запись не найдена id=[$id]"])
-				->withInput();
-		}
-		$data = $request->all();
-		$res = $item->update($data);
-		if ($res) {
-			return redirect()
-				->route('blog.admin.categories.edit', $item->id)
-				->with(['success' => 'Успешно сохранено']);
-		} else {
-			return back()
-				->withErrors(['msg' => "Ошибка сохранения id=[$id]"])
-				->withInput();
-		}
-	}
+        return back()->withErrors(['msg' => 'Ощибка сохранения'])->withInput();
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param $id
+     * @return Factory|Application|View|void
+     */
+    public function edit($id)
+    {
+        $item = $this->blogCategoryRepository->getEdit($id);
+        if (empty($item)) {
+            abort(404);
+        }
+        $categoryList = $this->blogCategoryRepository->getCategoryList();
+
+        return view('blog.admin.categories.edit', compact('item', 'categoryList'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param BlogCategoryUpdateRequest $request
+     * @param  $id
+     * @return RedirectResponse
+     */
+    public function update(BlogCategoryUpdateRequest $request, $id)
+    {
+        $item = $this->blogCategoryRepository->getEdit($id);
+        if (empty($item)) {
+            return back()->withErrors(['msg' => "Запись не найдена id=[$id]"])->withInput();
+        }
+
+        $data = $request->all();
+        $result = $item->update($data);
+        if ($result) {
+            return redirect()->route('blog.admin.categories.edit', $item->id)->with(['success' => 'Успешно сохранено']);
+        }
+        return back()->withErrors(['msg' => "Ошибка сохранения id=[$id]"])->withInput();
+
+    }
 
 }

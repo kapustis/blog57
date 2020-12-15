@@ -18,114 +18,109 @@ use Illuminate\View\View;
 class PostController extends BaseController
 {
 
-	/** @var BlogPostRepository * */
-	private $blogPostRepository;
-	/** @var  BlogCategoryRepository * */
-	private $blogCategoryRepository;
+    /** @var BlogPostRepository * */
+    private $blogPostRepository;
+    /** @var  BlogCategoryRepository * */
+    private $blogCategoryRepository;
 
-	/** postController constructor *
-	 * @param BlogPostRepository $blogPostRepository
-	 * @param BlogCategoryRepository $blogCategoryRepository
-	 */
-	public function __construct(BlogPostRepository $blogPostRepository, BlogCategoryRepository $blogCategoryRepository)
-	{
-		parent::__construct();
-		$this->blogPostRepository = $blogPostRepository;
-		$this->blogCategoryRepository = $blogCategoryRepository;
-	}
+    /** postController constructor *
+     * @param BlogPostRepository $blogPostRepository
+     * @param BlogCategoryRepository $blogCategoryRepository
+     */
+    public function __construct(BlogPostRepository $blogPostRepository, BlogCategoryRepository $blogCategoryRepository)
+    {
+        parent::__construct();
+        $this->blogPostRepository = $blogPostRepository;
+        $this->blogCategoryRepository = $blogCategoryRepository;
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function index()
-	{
-		$posts = $this->blogPostRepository->getAllWithPaginate(25);
-		return view('blog.admin.posts.index', compact('posts'));
-	}
+    /**
+     * @return Application|Factory|View
+     */
+    public function index()
+    {
+        $posts = $this->blogPostRepository->getAllWithPaginate(25);
+        return view('blog.admin.posts.index', compact('posts'));
+    }
 
-	/**
-	 * @return Application|Factory|View
-	 */
-	public function create()
-	{
-		$item = BlogPost::make();
-		$catList = $this->blogCategoryRepository->getForComboBox();
-		return view('blog.admin.posts.edit', compact('item', 'catList'));
-	}
+    /**
+     * @return Application|Factory|View
+     */
+    public function create()
+    {
+        $item = BlogPost::make();
+        $catList = $this->blogCategoryRepository->getForComboBox();
+        return view('blog.admin.posts.edit', compact('item', 'catList'));
+    }
 
-	public function store(BlogPostCreateRequest $request)
-	{
-//		dd($request->all());
-		$data = $request->input();
-		$item = BlogPost::create($data);
+    public function store(BlogPostCreateRequest $request)
+    {
+        $data = $request->input();
+        $item = BlogPost::create($data);
 
-		if ($item) {
-			$this->dispatch(new BlogPostAfterCreateJob($item));
-			return redirect()
-				->route('blog.admin.posts.edit', [$item->id])
-				->with(['success' => 'Успешно сохранено']);
-		} else {
-			return back()
-				->withErrors(['msg' => 'Ошибка сохранения'])
-				->withInput();
-		}
-	}
+        if ($item) {
+            $this->dispatch(new BlogPostAfterCreateJob($item));
 
-	/**
-	 * @param $id
-	 * @return Application|Factory|View
-	 */
-	public function edit($id)
-	{
-		$item = $this->blogPostRepository->getEdit($id);
-		if (empty($item)) {
-			abort(404);
-		}
-		$categoryList = $this->blogCategoryRepository->getCategoryList();
-		return view('blog.admin.posts.edit', compact('item', 'categoryList'));
-	}
+            return redirect()->route('blog.admin.posts.edit', [$item->id])->with(['success' => 'Успешно сохранено']);
+        }
 
-	public function update(BlogPostUpdateRequest $request, $id)
-	{
-		$item = $this->blogPostRepository->getEdit($id);
-		if (empty($item)) {
-			return back()
-				->withErrors(['msg' => "Запись id[{$id}] не найдена"])
-				->withInput();
-		}
-		$data = $request->all();
+        return back()->withErrors(['msg' => 'Ошибка сохранения'])->withInput();
+    }
 
-		$res = $item->update($data);
+    /**
+     * @param $id
+     * @return Application|Factory|View
+     */
+    public function edit($id)
+    {
+        $item = $this->blogPostRepository->getEdit($id);
+        if (empty($item)) {
+            abort(404);
+        }
+        $categoryList = $this->blogCategoryRepository->getCategoryList();
 
-		if ($res) {
-			return redirect()
-				->route('blog.admin.posts.edit', $item->id)
-				->with(['success' => 'Успешно обновлено']);
-		} else {
-			return back()
-				->withErrors(['msg' => "Ошибка сохранения"])
-				->withInput();
-		}
-	}
+        return view('blog.admin.posts.edit', compact('item', 'categoryList'));
 
-	/**
-	 * @param $id
-	 * @return RedirectResponse
-	 */
-	public function destroy($id)
-	{
-		/** мягкое удаление "use SoftDeletes" **/
-		$res = BlogPost::destroy($id);
-		/** Принудительное удаление одного экземпляра модели ...  **/
-		//$res = BlogPost::find($id)->forceDelete();
+    }
 
-		if ($res) {
-			//$this->dispatch(new BlogPostAfterDeleteJob($id));
-			BlogPostAfterDeleteJob::dispatch($id)->delay(25);
-			return redirect()
-				->route('blog.admin.posts.index')
-				->with(['success' => "Запись id[{$id}] удалена"]);
-		}
-		return back()->withErrors(['msg' => 'Ошибка']);
-	}
+    public function update(BlogPostUpdateRequest $request, $id)
+    {
+        $item = $this->blogPostRepository->getEdit($id);
+        if (empty($item)) {
+            return back()
+                ->withErrors(['msg' => "Запись id[{$id}] не найдена"])
+                ->withInput();
+        }
+        $data = $request->all();
+
+        $result = $item->update($data);
+
+        if ($result) {
+            return redirect()->route('blog.admin.posts.edit', $item->id)->with(['success' => 'Успешно обновлено']);
+        }
+        return back()->withErrors(['msg' => "Ошибка сохранения"])->withInput();
+
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function destroy($id)
+    {
+        /** мягкое удаление "use SoftDeletes" **/
+        $result = BlogPost::destroy($id);
+        /** Принудительное удаление одного экземпляра модели ...  **/
+        //$res = BlogPost::find($id)->forceDelete();
+
+        if ($result) {
+            //$this->dispatch(new BlogPostAfterDeleteJob($id));
+            BlogPostAfterDeleteJob::dispatch($id)->delay(25);
+
+            return redirect()->route('blog.admin.posts.index') ->with(['success' => "Запись id[{$id}] удалена"]);
+        }
+
+        return back()->withErrors(['msg' => 'Ошибка']);
+    }
+
 }

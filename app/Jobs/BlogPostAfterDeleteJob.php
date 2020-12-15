@@ -10,26 +10,26 @@ use Illuminate\Queue\SerializesModels;
 
 class BlogPostAfterDeleteJob implements ShouldQueue
 {
-	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-	/** @var int * */
-	private $blogPostId;
+    /** @var int * */
+    private $blogPostId;
 
-	/**
-	 * Create a new job instance.=
-	 * @param $blogPostId
-	 */
-	public function __construct($blogPostId)
-	{
-		$this->blogPostId = $blogPostId;
-	}
+    /**
+     * Create a new job instance.=
+     * @param $blogPostId
+     */
+    public function __construct($blogPostId)
+    {
+        $this->blogPostId = $blogPostId;
+    }
 
-	/**
-	 * Execute the job.
-	 * @return void
-	 */
-	public function handle()
-	{
-		logs()->warning("Удалена запись в бологе [{$this->blogPostId}]");
-	}
+    /**
+     * Execute the job.
+     * @return void
+     */
+    public function handle()
+    {
+        logs()->warning("Удалена запись в бологе [{$this->blogPostId}]");
+    }
 }
