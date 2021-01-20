@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\BlogCategory as Model;
-
-//use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -13,30 +11,30 @@ use Illuminate\Database\Eloquent\Collection;
  **/
 class BlogCategoryRepository extends CoreRepository
 {
-	/**
-	 * @return string
-	 */
-	protected function getModelClass()
-	{
-		return Model::class;
-	}
+    /**
+     * @return string
+     */
+    protected function getModelClass()
+    {
+        return Model::class;
+    }
 
-	/**
-	 *  Получить модель для редактирования в админке
-	 * @param  $id
-	 * @return Model
-	 */
-	public function getEdit($id)
-	{
-		return $this->startConditions()->find($id);
-	}
+    /**
+     *  Get your model for editing (in the admin area)
+     * @param  $id
+     * @return Model
+     */
+    public function getEdit($id)
+    {
+        return $this->startConditions()->find($id);
+    }
 
-	/**
-	 *  Получить список категорий для вывода в выпадающем списке
-	 * @return Collection
-	 */
-	public function getCategoryList()
-	{
+    /**
+     *  Get a list of categories to display in the list
+     * @return Collection
+     */
+    public function getCategoryList()
+    {
 //		return $this->startConditions()->all();
 //		$res[] = $this->startConditions()
 //			->select('blog_categories.*',
@@ -44,30 +42,30 @@ class BlogCategoryRepository extends CoreRepository
 //			->toBase()
 //			->get();
 
-		$fields = implode(', ', [
-			'id',
-			'CONCAT (id,". ",title) AS id_title',
-		]);
+        $fields = implode(', ', [
+            'id',
+            'CONCAT (id,". ",title) AS id_title',
+        ]);
 
-		$res = $this->startConditions()->selectRaw($fields)->toBase()->get();
+        $res = $this->startConditions()->selectRaw($fields)->toBase()->get();
 
-		return $res;
-	}
+        return $res;
+    }
 
-	/**
-	 * Получить категории для вывода пагинатором
-	 * @param null $perPage
-	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-	 */
-	public function getAllWithPaginate($perPage = null)
-	{
-		$fields = ['id', 'title', 'parent_id'];
-		$res = $this->startConditions()
-			->with(['parentCategory:id,title'])
-			->paginate($perPage, $fields);
+    /**
+     * Get categories for display by paginator
+     * @param null $perPage
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getAllWithPaginate($perPage = null)
+    {
+        $fields = ['id', 'title', 'parent_id'];
+        $res = $this->startConditions()
+            ->with(['parentCategory:id,title'])
+            ->paginate($perPage, $fields);
 //			->select($fields)
 //			->paginate($perPage);
 
-		return $res;
-	}
+        return $res;
+    }
 }
