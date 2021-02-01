@@ -49,8 +49,8 @@ class PostController extends BaseController
     public function create()
     {
         $item = BlogPost::make();
-        $catList = $this->blogCategoryRepository->getForComboBox();
-        return view('blog.admin.posts.edit', compact('item', 'catList'));
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        return view('blog.admin.posts.edit', compact('item', 'categoryList'));
     }
 
     public function store(BlogPostCreateRequest $request)
