@@ -43,7 +43,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            {{$categories->links()}}
+                            {{$categories->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
                 </div>
