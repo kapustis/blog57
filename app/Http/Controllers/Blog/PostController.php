@@ -15,26 +15,19 @@ class PostController extends BaseController
     const POST_PAGINATION = 10; // transfer to .env
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource and list the search result for a resource.
+     * @param Request $request
      * @return Factory|Application|Response|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = BlogPost::paginate(self::POST_PAGINATION);
+        $items = $request->items ?? self::POST_PAGINATION;
 
-        return view('blog.posts.index', compact('posts'));
-    }
+        $posts = BlogPost::where('title', 'LIKE', "%{$request->search}%")->paginate($items)->withQueryString();
 
-    /**
-     * List the search result for a resource.
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View
-     */
-    public function search(Request $request)
-    {
-        $results = BlogPost::where('title', 'LIKE', "%{$request->search}%")->paginate(self::POST_PAGINATION);
-
-        return view('blog.posts.index',['posts'=>$results, 'search'=>$request->search]);
-
+        return view('blog.posts.index')->
+        withPosts($posts)->
+        withItems($items)->
+        withSearch($request->search);
     }
 }
