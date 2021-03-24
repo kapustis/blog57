@@ -41,8 +41,17 @@ class BlogPostRepository extends CoreRepository
 //		dd($res);
         return $res;
     }
+    /**
+     * @param $id
+     * @return Model
+     */
+    public function getItem($id)
+    {
+        return $this->startConditions()->find($id);
+    }
 
     /**
+     * Get your model for editing (in the admin area)
      * @param $id
      * @return Model
      */

@@ -4,8 +4,7 @@
     <div class="container">
         <div class="d-flex justify-content-center align-items-center">
             <div class="search w-60">
-                <h1 class="text-center mb-6">Search</h1>
-                <form method="get" action="{{route('blog.index')}}">
+                <form method="get" action="{{route('blog.posts.index')}}">
                     @csrf
                     <div class="row">
                         <div class="col-12">
@@ -24,8 +23,8 @@
                                 <table>
                                     @foreach($posts as $post)
                                         <tr>
-                                            <td>{{$post ->id}}</td>
-                                            <td>{{$post->title}}</td>
+                                            <td>{{$post->id}}</td>
+                                            <td><a href="{{ route('blog.posts.show', $post)}}">{{$post->title}}</a></td>
                                             <td>{{$post->created_at}}</td>
                                         </tr>
                                     @endforeach
@@ -52,7 +51,7 @@
             </div>
         </div>
     </div>
-{{--todo   so not very good, but I don’t know yet how differently--}}
+    {{--todo   so not very good, but I don’t know yet how differently--}}
     <script>
       document.getElementById('pagination').onchange = function () {
         window.location = "{!! $posts->url(1) !!}&items=" + this.value;
