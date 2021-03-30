@@ -26,7 +26,7 @@ class BlogPost extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const UNKNOWN_USER = 1;
+    const UNKNOWN_USER = 4;
 
 //    protected $guarded = [
 //        '_method',

@@ -20,7 +20,8 @@ class BlogPostFactory extends Factory
 
         $data = [
             'category_id' => rand(1, 11),
-            'user_id' => (rand(1, 5) == 5) ? 1 : 2,
+            'user_id' => (rand(1, 5) == 5) ? 3 : 4,
+//            'user_id' => 3,
             'title' => $title,
             'slug' => Str::slug($title),
             'excerpt' => $this->faker->text(rand(40, 140)),
@@ -31,7 +32,7 @@ class BlogPostFactory extends Factory
             'created_at' => $createdAt,
             'updated_at' => $createdAt,
         ];
-
+//        dd($data);
         return $data;
     }
 }
