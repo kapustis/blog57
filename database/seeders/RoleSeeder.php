@@ -14,19 +14,17 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $admin = new Role();
-        $admin->name = 'Admin';
-        $admin->slug = 'admin';
-        $admin->save();
+        $roles = [
+            ['slug' => 'root', 'name' => 'Super-Admin'],
+            ['slug' => 'admin', 'name' => 'Admin'],
+            ['slug' => 'user', 'name' => 'User'],
+        ];
 
-        $superAdmin = new Role();
-        $superAdmin->name = 'Super-Admin';
-        $superAdmin->slug = 'super-admin';
-        $superAdmin->save();
-
-        $user = new Role();
-        $user->name = 'User';
-        $user->slug = 'user';
-        $user->save();
+        foreach ($roles as $item) {
+            $role = new Role();
+            $role->name = $item['name'];
+            $role->slug = $item['slug'];
+            $role->save();
+        }
     }
 }
