@@ -15,12 +15,12 @@ class UserPermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach(User::all() as $user) {
-            foreach(Permission::all() as $perm) {
-                if (rand(1, 20) == 10) {
-                    // $user->permissions()->attach($perm->id);
-                }
-            }
-        }
+//        foreach(User::all() as $user) {
+//            foreach(Permission::all() as $perm) {
+//                if (rand(1, 20) == 10) {
+//                     $user->permissions()->attach($perm->id);
+//                }
+//            }
+//        }
     }
 }

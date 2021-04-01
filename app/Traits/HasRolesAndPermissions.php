@@ -100,11 +100,17 @@ trait HasRolesAndPermissions
         return false;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAllPermissions()
     {
         return $this->permissions->pluck('slug')->toArray();
     }
 
+    /**
+     * @return array
+     */
     public function getAllPermissionsViaRoles()
     {
         $permissions = [];
@@ -117,6 +123,9 @@ trait HasRolesAndPermissions
         return array_values(array_unique($permissions));
     }
 
+    /**
+     * @return array
+     */
     public function getAllPermissionsAnyWay() {
         $perms = array_merge(
             $this->getAllPermissions(),
@@ -125,6 +134,9 @@ trait HasRolesAndPermissions
         return array_values(array_unique($perms));
     }
 
+    /**
+     * @return mixed
+     */
     public function getAllRoles() {
         return $this->roles->pluck('slug')->toArray();
     }
