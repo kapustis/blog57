@@ -10,12 +10,17 @@ class CheckUserPermission
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param $perm
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next,$perm)
     {
+        if (!auth()->user()->hasPermAnyWay($perm)) {
+            abort(404);
+        }
+
         return $next($request);
     }
 }

@@ -34,7 +34,7 @@ class BlogCategory extends Model
      */
     public function getParentTitleAttribute()
     {
-        $title = $this->parentCategory->title ?? (1 ? 'Корень' : '???');
+        $title = $this->parentCategory()->title ?? (1 ? 'Корень' : '???');
         return $title;
     }
 

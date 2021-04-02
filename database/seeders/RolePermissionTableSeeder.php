@@ -15,24 +15,26 @@ class RolePermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach(Role::all() as $role) {
-            if ($role->slug == 'root') { // для роли супер-админа все права
+        foreach (Role::all() as $role) {
+            if ($role->slug == 'root') { // for the super-admin role, all rights
                 foreach (Permission::all() as $perm) {
                     $role->permissions()->attach($perm->id);
                 }
             }
-            if ($role->slug == 'admin') { // для роли администратора поменьше
+            if ($role->slug == 'admin') { // for a smaller administrator role
                 $slugs = [
                     'create-post', 'edit-post', 'publish-post', 'delete-post',
                     'create-comment', 'edit-comment', 'publish-comment', 'delete-comment'
                 ];
+
                 foreach ($slugs as $slug) {
                     $perm = Permission::where('slug', $slug)->first();
                     $role->permissions()->attach($perm->id);
                 }
             }
-            if ($role->slug == 'user') { // для обычного пользователя совсем чуть-чуть
+            if ($role->slug == 'user') { // just a little bit for the average user
                 $slugs = ['create-post', 'create-comment'];
+
                 foreach ($slugs as $slug) {
                     $perm = Permission::where('slug', $slug)->first();
                     $role->permissions()->attach($perm->id);

@@ -15,7 +15,7 @@ trait HasRolesAndPermissions
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'users_roles');
+        return $this->belongsToMany(Role::class, 'users_roles')->withTimestamps();
     }
 
     /**
@@ -24,7 +24,7 @@ trait HasRolesAndPermissions
      */
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'users_permissions');
+        return $this->belongsToMany(Permission::class, 'users_permissions')->withTimestamps();
     }
 
     /**
@@ -139,5 +139,102 @@ trait HasRolesAndPermissions
      */
     public function getAllRoles() {
         return $this->roles->pluck('slug')->toArray();
+    }
+
+    /**
+     * @param mixed ...$permissions
+     * @return $this
+     */
+    public function assignPermissions(...$permissions) {
+        $permissions = Permission::whereIn('slug', $permissions)->get();
+
+        if ($permissions->count() === 0) {
+            return $this;
+        }
+
+        $this->permissions()->syncWithoutDetaching($permissions);
+
+        return $this;
+    }
+
+    /**
+     * Take away the permission of the current user
+     * @param mixed ...$permissions
+     * @return $this
+     */
+    public function unassignPermissions(...$permissions) {
+        $permissions = Permission::whereIn('slug', $permissions)->get();
+
+        if ($permissions->count() === 0) {
+            return $this;
+        }
+
+        $this->permissions()->detach($permissions);
+
+        return $this;
+    }
+
+    /**
+     * @param mixed ...$permissions
+     * @return $this
+     */
+    public function refreshPermissions(...$permissions) {
+        $permissions = Permission::whereIn('slug', $permissions)->get();
+
+        if ($permissions->count() === 0) {
+            return $this;
+        }
+
+        $this->permissions()->sync($permissions);
+
+        return $this;
+    }
+
+    /**
+     * Add the current user to the role $roles
+     * @param mixed ...$roles
+     * @return $this
+     */
+    public function assignRoles(...$roles) {
+        $roles = Role::whereIn('slug', $roles)->get();
+
+        if ($roles->count() === 0) {
+            return $this;
+        }
+
+        $this->roles()->syncWithoutDetaching($roles);
+
+        return $this;
+    }
+
+    /**
+     * take away the current user with the role $roles
+     * @param mixed ...$roles
+     * @return $this
+     */
+    public function unassignRoles(...$roles) {
+        $roles = Role::whereIn('slug', $roles)->get();
+        if ($roles->count() === 0) {
+            return $this;
+        }
+        $this->roles()->detach($roles);
+        return $this;
+    }
+
+    /**
+     * Assign the current user to the role $roles
+     * @param mixed ...$roles
+     * @return $this
+     */
+    public function refreshRoles(...$roles) {
+        $roles = Role::whereIn('slug', $roles)->get();
+
+        if ($roles->count() === 0) {
+            return $this;
+        }
+
+        $this->roles()->sync($roles);
+
+        return $this;
     }
 }

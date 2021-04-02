@@ -1,7 +1,7 @@
 <?php
 
 /** роуты админ части **/
-Route::group(['namespace' => 'App\Http\Controllers\Blog\Admin', 'prefix' => 'admin/blog'], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Blog\Admin', 'prefix' => 'admin/blog', 'middleware' => 'role:root'], function () {
     $methods = ['index', 'create', 'store', 'edit', 'update'];
     Route::resource('categories', 'CategoryController')
         ->only($methods)

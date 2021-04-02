@@ -10,12 +10,17 @@ class CheckUserRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @param $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next,$role)
     {
+        if (!auth()->user()->hasRole($role)) {
+            abort(404);
+        }
+
         return $next($request);
     }
 }
