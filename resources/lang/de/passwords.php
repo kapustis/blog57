@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Password Reset Language Lines
@@ -13,10 +12,9 @@ return [
     |
     */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
-
+    'password' => 'Kennwörter müssen mind. 6 Zeichen haben und gleich der Wiederholung sein.',
+    'reset' => 'Dein Kennwort wurde zurückgesetzt!',
+    'sent' => 'Wir haben dir einen Link zum Zurücksetzen deines Kennworts gesendet!',
+    'token' => 'Der Token zum Zurücksetzen des Kennworts ist ungültig.',
+    'user' => 'Wir können keinen Benutzer mit der E-Mailadresse finden.',
 ];

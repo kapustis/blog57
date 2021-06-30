@@ -3,13 +3,31 @@
 
 // Variables
 @import 'variables';
+//@import "mixins.scss";
+//@import "global.scss";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
 
-@import "mixins.scss";
-@import "global.scss";
-@import "navbar.scss";
-@import "masthead.scss";
-@import "post.scss";
-@import "bootstrap-overrides.scss";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "-apple-system", BlinkMacSystemFont, Segoe UI, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #0b0b0b;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+@import "header";
+@import "footer";

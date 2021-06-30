@@ -86,11 +86,13 @@ class PostController extends BaseController
     public function update(BlogPostUpdateRequest $request, $id)
     {
         $item = $this->blogPostRepository->getEdit($id);
+
         if (empty($item)) {
             return back()
                 ->withErrors(['msg' => "Запись id[{$id}] не найдена"])
                 ->withInput();
         }
+
         $data = $request->all();
 
         $result = $item->update($data);
