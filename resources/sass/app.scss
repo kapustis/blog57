@@ -1,8 +1,6 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
+@import "fonts";
 //@import "mixins.scss";
 //@import "global.scss";
 
@@ -11,6 +9,23 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+input, textarea {
+  outline: none;
+  border: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+textarea:focus::placeholder {
+  color: transparent;
 }
 
 body {
@@ -30,4 +45,7 @@ body {
 }
 
 @import "header";
+@import "login";
+@import "blog_index";
+@import "pagination";
 @import "footer";

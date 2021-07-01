@@ -1,7 +1,12 @@
 /* todo Footer */
 footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
   height: 100px;
+  width: 100%;
   background-color: #051428;
-  box-shadow:  0 -4px 12px 0 rgba(0, 0, 0, 0.78);
+  box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.78);
 }
+
 /* todo Footer */

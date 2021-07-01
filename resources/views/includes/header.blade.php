@@ -21,7 +21,8 @@
                         <li>
                             <ul>
                                 <li>
-                                    <a href="{{route('profile',Auth::user())}}"> {{__('navs.frontend.user.profile')}}</a>
+{{--                                    <a href="{{route('profile',Auth::user())}}"> {{__('navs.frontend.user.profile')}}</a>--}}
+                                    <a href="#"> {{__('navs.frontend.user.profile')}}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
