@@ -1,26 +1,29 @@
 @forelse($posts as $post)
-    <li class="content_item">
-        <article class="post_preview">
-            <header class="post_meta">
-                <a href="#" class="user_info" title="avtor">
-                    <span class="user_nick">{{$post->creator->name}}</span>
-                </a>
-                <span class="post_time">{{$post->created_at}}</span>
-            </header>
-            <h2 class="post_title">
-                <a href="#"> {{$post->title}}</a>
-            </h2>
-            <div class="post_body">
-                <div class="post_text">
-                    <p><img src="/images/posts/0{{rand(1,6)}}.jpg" alt="{{$post->title}}"></p>
-                    <p> {!! stristr($post->body, '</div>' ,true) !!}</p>
-                </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2>{{ $post->title }}</h2>
+        </div>
+        <div class="card-body">
+            @if ($post->image)
+                <img src="{{ asset('storage/post/image/'.$post->image) }}" alt="{{ $post->title }}" class="img-fluid"/>
+            @else
+                <img src="/images/posts/0{{rand(1,6)}}.jpg" alt="{{ $post->title }}" class="img-fluid">
+            @endif
+        </div>
+        <div class="card-footer">
+            <div class="clearfix">
+            <span class="float-left">
+                Автор:
+                <a href="#"> {{ $post->creator->name }} </a>
+                <br>
+                Дата: {{ $post->created_at }}
+            </span>
+                <span class="float-right">
+                <a href="{{ route('blog.posts.show', $post)}}" class="btn btn-dark">Читать дальше</a>
+            </span>
             </div>
-            <a href="#" class="button" style="left: 0">
-                Читать
-            </a>
-        </article>
-    </li>
+        </div>
+    </div>
 @empty
     <p>Нет соответствующих результатов в это время</p>
     <p>There are no relevant results at this time.</p>

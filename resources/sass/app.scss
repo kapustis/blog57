@@ -1,9 +1,9 @@
 // Variables
 @import 'variables';
 @import "fonts";
-//@import "mixins.scss";
-//@import "global.scss";
 
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
 
 * {
   box-sizing: border-box;
@@ -29,6 +29,12 @@ textarea:focus::placeholder {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  border-spacing: 0;
+  border-collapse: collapse;
   font-family: "-apple-system", BlinkMacSystemFont, Segoe UI, sans-serif;
   font-size: 16px;
   line-height: 1.6;
@@ -36,12 +42,11 @@ body {
 }
 
 #app {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  border-spacing: 0;
-  border-collapse: collapse;
+  display: grid;
+  grid-template-rows: max-content max-content max-content max-content;
+  grid-template-columns: 100%;
+  align-items: start;
+  justify-content: stretch;
 }
 
 @import "header";

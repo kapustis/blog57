@@ -6,7 +6,8 @@ use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use App\Observers\BlogCategoryObserver;
 use App\Observers\BlogPostObserver;
-use Illuminate\Support\Facades\Schema;
+//use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,7 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        View::composer('layouts.part.categories', function($view) {
+            $view->with(['items' => BlogCategory::all()]);
+        });
     }
 
     /**
