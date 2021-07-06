@@ -1,47 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.app',['title' => $post->title])
 
 @section('content')
-    <header class="masthead" style="background-image: url({{ asset('images/posts/03.jpg') }})">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="post-heading">
-                        <h1>{{$item->title}}</h1>
-                    </div>
-                </div>
-            </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h1>{{ $post->title }}</h1>
         </div>
-    </header>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                {{$item->content_html}}
-                <hr>
-
-                <div class="clearfix">
-                    <a class="btn btn-primary float-left" href="#"
-                       data-toggle="tooltip" data-placement="top" title=""
-                       data-original-title="The dreams of yesterday are the hopes of today and the reality of tomorrow."
-                    >
-                        ← Previous
-                        <span class="d-none d-md-inline"> Post </span>
-                    </a>
-
-                    <a class="btn btn-primary float-right"
-                       href="#"
-                       data-toggle="tooltip"
-                       data-placement="top" title=""
-                       data-original-title="Science has not yet mastered prophecy"
-                    >
-                        Next
-                        <span class="d-none d-md-inline"> Post</span> →
-                    </a>
-                </div>
-
-            </div>
+        <div class="card-body">
+            @if ($post->image)
+                <img src="{{ asset('storage/post/image/'.$post->image) }}" alt="" class="img-fluid"/>
+            @else
+                <img src="/images/posts/0{{rand(1,6)}}.jpg" alt="{{ $post->title }}" class="img-fluid">
+            @endif
+            <div class="mt-4">{!! $post->content_html !!}</div>
+        </div>
+        <div class="card-footer">
+            Автор:
+            <a href="#">
+                {{ $post->creator->name }}
+            </a>
+            <br>
+            Дата: {{ $post->created_at }}
         </div>
     </div>
-
+    @include('blog.posts.comments', ['comments' => $comments])
 @endsection

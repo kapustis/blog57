@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -43,7 +44,7 @@ class BlogPost extends Model
      * Категория поста
      * @return BelongsTo
      **/
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'category_id');
     }
@@ -52,9 +53,21 @@ class BlogPost extends Model
      * Автор
      * @return BelongsTo
      **/
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+
+    /**
+     * Linking the Post model to the Comment model allows you to get all the comments on the post
+     *
+     * Связь модели Post с моделью Comment, позволяет получить все комментарии к посту
+     * @return HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(BlogComment::class);
     }
 
 }

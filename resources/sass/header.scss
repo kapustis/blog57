@@ -2,7 +2,6 @@ header {
   position: sticky;
   top: 0;
   padding: 0.5rem 10%;
-  margin-bottom: 1rem;
   background-color: #051428;
   z-index: 10;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.78);
@@ -39,6 +38,9 @@ header > nav {
 }
 
 .drop-menu {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -76,11 +78,3 @@ li:hover > ul.drop-menu {
     margin-right: 15px;
   }
 }
-
-
-
-
-
-
-
-

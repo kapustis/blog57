@@ -19,20 +19,10 @@
 <body>
 <div id="app">
     @include('includes.header')
-    @include('includes.nav_bar')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h4>Категории блога</h4>
-                @include('layouts.part.categories',['parent'=> 1])
-            </div>
 
-            <div class="col-md-9">
-                @yield('content')
-            </div>
-        </div>
-    </div>
-    {{--    @include('includes.footer')--}}
+    @yield('content')
+
+    @include('includes.footer')
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>

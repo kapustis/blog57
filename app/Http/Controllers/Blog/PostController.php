@@ -41,20 +41,37 @@ class PostController extends BaseController
         withItems($items)->
         withSearch($request->search);
     }
+    /**
+     * Post search results
+     * Результаты поиска по постам, авторам и тегам
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View
+     */
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $posts = BlogPost::where('title', 'LIKE', "%{$request->search}%")->paginate(5)->withQueryString();
+
+        return view('blog.posts.search', compact('posts', 'search'));
+    }
 
     /**
      * Display blog post.
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id){
+    public function show($id)
+    {
 
-        $item = $this->blogPostRepository->getItem($id);
+        $post = $this->blogPostRepository->getItem($id);
 
-        if (empty($item)) {
+        $comments = $post->comments()->orderBy('created_at')->paginate(5);
+
+        if (empty($post)) {
             abort(404);
         }
 
-        return view('blog.posts.show',compact('item'));
+        return view('blog.posts.show', compact('post', 'comments'));
     }
 }
