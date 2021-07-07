@@ -63,7 +63,6 @@ class PostController extends BaseController
      */
     public function show($id)
     {
-
         $post = $this->blogPostRepository->getItem($id);
 
         $comments = $post->comments()->orderBy('created_at')->paginate(5);

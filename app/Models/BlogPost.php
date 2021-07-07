@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App\Models
  *
- * @property \App\Models\BlogCategory\ $category
+ * @property \App\Models\BlogCategory $category
  * @property  string $title
  * @property  string $slug
  * @property  string $content_html
@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property  string $excerpt
  * @property  string $published_at
  * @property  bool $is_published
- *
  */
 class BlogPost extends Model
 {
@@ -65,7 +64,7 @@ class BlogPost extends Model
      * Связь модели Post с моделью Comment, позволяет получить все комментарии к посту
      * @return HasMany
      */
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(BlogComment::class);
     }

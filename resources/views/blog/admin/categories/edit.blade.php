@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('blog.admin.layout.admin')
 
 @section('content')
     @php /** @var \App\Models\BlogCategory $item **/ @endphp
@@ -11,6 +11,7 @@
                     @csrf
                     <div class="container">
                         @php /** @var \Illuminate\Support\ViewErrorBag $errors **/ @endphp
+
                         @if($errors->any())
                             <div class="row justify-content-center">
                                 <div class="col-md-11">
@@ -23,6 +24,7 @@
                                 </div>
                             </div>
                         @endif
+
                         @if(session('success'))
                             <div class="row justify-content-center">
                                 <div class="col-md-11">
@@ -35,6 +37,7 @@
                                 </div>
                             </div>
                         @endif
+
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 @include('blog.admin.categories.includes.item_edit_main_col')

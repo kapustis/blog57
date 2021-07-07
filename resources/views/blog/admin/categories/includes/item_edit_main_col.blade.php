@@ -10,6 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title"></div>
+
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" role="tab" href="#maindata">Основные даные</a>

@@ -15,6 +15,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+/**
+ * Class PostController
+ * @package App\Http\Controllers\Blog\Admin
+ */
 class PostController extends BaseController
 {
 
@@ -32,6 +36,11 @@ class PostController extends BaseController
         parent::__construct();
         $this->blogPostRepository = $blogPostRepository;
         $this->blogCategoryRepository = $blogCategoryRepository;
+
+        $this->middleware('perm:manage-posts')->only(['index', 'category', 'show']);
+        $this->middleware('perm:edit-post')->only(['edit', 'update']);
+        $this->middleware('perm:publish-post')->only(['enable', 'disable']);
+        $this->middleware('perm:delete-post')->only('destroy');
     }
 
     /**
@@ -39,7 +48,8 @@ class PostController extends BaseController
      */
     public function index()
     {
-        $posts = $this->blogPostRepository->getAllWithPaginate(25);
+        $posts = $this->blogPostRepository->getAllWithPaginate(15);
+
         return view('blog.admin.posts.index', compact('posts'));
     }
 
@@ -49,7 +59,7 @@ class PostController extends BaseController
     public function create()
     {
         $item = BlogPost::make();
-        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getCategoryList();
         return view('blog.admin.posts.edit', compact('item', 'categoryList'));
     }
 
@@ -74,6 +84,7 @@ class PostController extends BaseController
     public function edit($id)
     {
         $item = $this->blogPostRepository->getEdit($id);
+
         if (empty($item)) {
             abort(404);
         }
@@ -83,6 +94,11 @@ class PostController extends BaseController
 
     }
 
+    /**
+     * @param BlogPostUpdateRequest $request
+     * @param $id
+     * @return RedirectResponse
+     */
     public function update(BlogPostUpdateRequest $request, $id)
     {
         $item = $this->blogPostRepository->getEdit($id);

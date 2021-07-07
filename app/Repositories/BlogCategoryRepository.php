@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\BlogCategory as Model;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class BlogCategoryRepository
@@ -20,7 +19,7 @@ class BlogCategoryRepository extends CoreRepository
     }
 
     /**
-     *  Get your model for editing (in the admin area)
+     * Get your model for editing (in the admin area)
      * @param  $id
      * @return Model
      */
@@ -30,26 +29,21 @@ class BlogCategoryRepository extends CoreRepository
     }
 
     /**
-     *  Get a list of categories to display in the list
-     * @return Collection
+     * Get a list of categories to display in the list
+     * @return mixed
      */
     public function getCategoryList()
     {
-//		return $this->startConditions()->all();
-//		$res[] = $this->startConditions()
-//			->select('blog_categories.*',
-//				\DB::raw('CONCAT (id,". ",title) AS id_title'))
-//			->toBase()
-//			->get();
+        $fields = implode(', ',
+            [
+                'id',
+                'CONCAT (id,". ",title) AS id_title',
+            ]
+        );
 
-        $fields = implode(', ', [
-            'id',
-            'CONCAT (id,". ",title) AS id_title',
-        ]);
+        $result = $this->startConditions()->selectRaw($fields)->toBase()->get();
 
-        $res = $this->startConditions()->selectRaw($fields)->toBase()->get();
-
-        return $res;
+        return $result;
     }
 
     /**
@@ -60,12 +54,11 @@ class BlogCategoryRepository extends CoreRepository
     public function getAllWithPaginate($perPage = null)
     {
         $fields = ['id', 'title', 'parent_id'];
-        $res = $this->startConditions()
+
+        $result = $this->startConditions()
             ->with(['parentCategory:id,title'])
             ->paginate($perPage, $fields);
-//			->select($fields)
-//			->paginate($perPage);
 
-        return $res;
+        return $result;
     }
 }

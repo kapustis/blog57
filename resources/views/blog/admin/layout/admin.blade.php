@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? config('app.name', 'Blog') }}</title>
+    <title>Admin panel</title>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -17,24 +17,14 @@
     </script>
 </head>
 <body>
-<div id="app">
-    @include('includes.header')
-    @include('includes.nav_bar')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <h4>Категории блога</h4>
-                @include('layouts.part.categories',['parent'=> 1])
-            </div>
+    <div id="app">
+        @include('includes.header')
 
-            <div class="col-md-9">
-                @yield('content')
-            </div>
-        </div>
+        @yield('content')
+
+{{--        @include('includes.footer')--}}
     </div>
-    {{--    @include('includes.footer')--}}
-</div>
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

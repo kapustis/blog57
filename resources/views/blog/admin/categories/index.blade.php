@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('blog.admin.layout.admin')
 
 @section('content')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -19,15 +18,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $item)
-                                @php /** @var \App\Models\BlogCategory $item */ @endphp
+                            @foreach($categories as $category)
+                                @php /** @var \App\Models\BlogCategory $category */ @endphp
                                 <tr>
-                                    <td>{{$item->id}}</td>
+                                    <td>{{$category->id}}</td>
                                     <td>
-                                        <a href="{{ route('blog.admin.categories.edit', $item->id) }}">{{$item->title}}</a>
+                                        <a href="{{ route('blog.admin.categories.edit', $category->id) }}">{{$category->title}}</a>
                                     </td>
-                                    <td @if(in_array($item->parent_id,[0,1])) style="color:#f66D9b;" @endif >
-                                        {{ $item->parentTitle }}
+                                    <td @if(in_array($category->parent_id,[0,1])) style="color:#f66D9b;" @endif >
+                                        {{ $category->parentTitle }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -37,18 +36,19 @@
                 </div>
             </div>
         </div>
+
         @if($categories->total() > $categories->count())
             <br>
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            {{$categories->links("vendor.pagination.bootstrap-4")}}
+                            {{$categories->links("vendor.pagination.default")}}
                         </div>
                     </div>
                 </div>
             </div>
         @endif
-    </div>
 
+    </div>
 @endsection

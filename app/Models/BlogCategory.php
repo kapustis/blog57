@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * Class BlogCategory
+ * @package App\Models
+ *
  * @property int id
  * @property string slug
  * @property string title
@@ -14,33 +17,42 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read BlogCategory $parentCategory
  * @property-read string $parentTitle
  */
+
+
 class BlogCategory extends Model
 {
     use SoftDeletes;
 
     const ROOT_ID = 1;
+
     protected $fillable = ['parent_id', 'title', 'slug', 'description'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parentCategory()
+    public function parentCategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
     }
 
-    /**Accessor
+    /**
+     * Accessor
      * @return string
      */
-    public function getParentTitleAttribute()
+    public function getParentTitleAttribute(): string
     {
-        $title = $this->parentCategory()->title ?? (1 ? 'Корень' : '???');
+        $title = $this->parentCategory->title ?? ($this->isRoot() ? 'Корень!' : 'Косячная категория???');
+
         return $title;
     }
 
-//    public function isRoot()
-//    {
-//        return $this->id === BlogCategory::ROOT_ID;
-//    }
+    /**
+     * Whether the current object is root
+     * @return bool
+     */
+    public function isRoot(): bool
+    {
+        return $this->id === BlogCategory::ROOT_ID;
+    }
 
 }

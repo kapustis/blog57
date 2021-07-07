@@ -28,6 +28,11 @@ class CategoryController extends BaseController
         parent::__construct();
 //        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
         $this->blogCategoryRepository = $blogCategoryRepository;
+
+        $this->middleware('perm:manage-categories')->only('index');
+        $this->middleware('perm:create-category')->only(['create', 'store']);
+        $this->middleware('perm:edit-category')->only(['edit', 'update']);
+        $this->middleware('perm:delete-category')->only('destroy');
     }
 
     /**

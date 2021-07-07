@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('blog.admin.layout.admin')
 
 @section('content')
     <div class="container">
@@ -50,7 +50,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            {{$posts->links("vendor.pagination.bootstrap-4")}}
+                            {{$posts->links("vendor.pagination.default")}}
                         </div>
                     </div>
                 </div>

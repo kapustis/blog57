@@ -15,12 +15,18 @@ class Permission extends Model
 {
     use HasFactory;
 
-    public function roles()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'roles_permissions')->withTimestamps();
     }
 
-    public function users()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'users_permissions')->withTimestamps();
     }

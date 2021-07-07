@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('blog.admin.layout.admin')
 
 @section('content')
     @php /** @var \App\Models\BlogPost $item **/ @endphp
