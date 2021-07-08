@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="app">
-        @include('includes.header')
+        @include('blog.admin.includes.header')
 
         @yield('content')
 

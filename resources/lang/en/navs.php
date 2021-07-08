@@ -16,7 +16,10 @@ return [
     'general' => [
         'home' => 'Home',
         'blog' => 'Blog',
+        'category' => 'Categories',
+        'post' => 'Posts',
         'contact' => 'Contact',
+        'users' => 'Users',
     ],
 
     'frontend' => [

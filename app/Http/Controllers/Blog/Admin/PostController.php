@@ -88,6 +88,7 @@ class PostController extends BaseController
         if (empty($item)) {
             abort(404);
         }
+
         $categoryList = $this->blogCategoryRepository->getCategoryList();
 
         return view('blog.admin.posts.edit', compact('item', 'categoryList'));
@@ -116,6 +117,7 @@ class PostController extends BaseController
         if ($result) {
             return redirect()->route('blog.admin.posts.edit', $item->id)->with(['success' => 'Успешно обновлено']);
         }
+
         return back()->withErrors(['msg' => "Ошибка сохранения"])->withInput();
 
     }
