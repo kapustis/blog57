@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ mix('css/frontend.css') }}" rel="stylesheet">
+{{--    <link href="{{ mix('css/backend.css') }}" rel="stylesheet">--}}
     <script>
       window.default_locale = "{{ app()->getLocale() }}";
       window.fallback_locale = "{{ app()->getLocale() }}";

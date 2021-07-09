@@ -7,6 +7,13 @@ namespace App\Traits;
 use App\Models\Permission;
 use App\Models\Role;
 
+/**
+ * Trait HasRolesAndPermissions
+ * @package App\Traits
+ *
+ * @property Role $roles
+ * @property Permission permissions
+ */
 trait HasRolesAndPermissions
 {
     /**
@@ -50,7 +57,7 @@ trait HasRolesAndPermissions
      * @param $permission
      * @return bool
      */
-    public function hasPermissionsViaRoles($permission)
+    public function hasPermissionsViaRoles($permission): bool
     {
         // We look at all user roles and look for the right right in them
         foreach ($this->roles as $role) {
@@ -65,7 +72,7 @@ trait HasRolesAndPermissions
      * @param $permission
      * @return bool
      */
-    public function hasPermAnyWay($permission)
+    public function hasPermAnyWay($permission): bool
     {
         return $this->hasPermissionsViaRoles($permission) || $this->hasPermission($permission);
     }
@@ -74,7 +81,7 @@ trait HasRolesAndPermissions
      * @param mixed ...$permissions
      * @return bool
      */
-    public function hasAllPermissions(...$permissions)
+    public function hasAllPermissions(...$permissions): bool
     {
         foreach ($permissions as $permission) {
             $condition = $this->hasPermissionsViaRoles($permission) || $this->hasPermission($permission);
@@ -90,7 +97,7 @@ trait HasRolesAndPermissions
      * @param mixed ...$permissions
      * @return bool
      */
-    public function hasAnyPermissions(...$permissions)
+    public function hasAnyPermissions(...$permissions): bool
     {
         foreach ($permissions as $permission) {
             if ($this->hasPermissionsViaRoles($permission) || $this->hasPermission($permission)) {
@@ -111,7 +118,7 @@ trait HasRolesAndPermissions
     /**
      * @return array
      */
-    public function getAllPermissionsViaRoles()
+    public function getAllPermissionsViaRoles(): array
     {
         $permissions = [];
         foreach ($this->roles as $role) {
@@ -126,7 +133,8 @@ trait HasRolesAndPermissions
     /**
      * @return array
      */
-    public function getAllPermissionsAnyWay() {
+    public function getAllPermissionsAnyWay(): array
+    {
         $perms = array_merge(
             $this->getAllPermissions(),
             $this->getAllPermissionsViaRoles()
@@ -145,7 +153,8 @@ trait HasRolesAndPermissions
      * @param mixed ...$permissions
      * @return $this
      */
-    public function assignPermissions(...$permissions) {
+    public function assignPermissions(...$permissions): HasRolesAndPermissions
+    {
         $permissions = Permission::whereIn('slug', $permissions)->get();
 
         if ($permissions->count() === 0) {

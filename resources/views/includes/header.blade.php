@@ -21,19 +21,26 @@
                         <li>
                             <ul>
                                 <li>
-{{--                                    <a href="{{route('profile',Auth::user())}}"> {{__('navs.frontend.user.profile')}}</a>--}}
-                                    <a href="#"> {{__('navs.frontend.user.profile')}}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                    >{{__('navs.frontend.user.logout')}}
-                                    </a>
-                                    <form id="logout-form"
-                                          action="{{ route('logout') }}"
-                                          method="POST"
-                                          style="display: none;"
-                                    >{{ csrf_field() }}</form>
+                                    <a href="#"> {{Auth::user()->name}}</a>
+                                    <ul class="drop-menu">
+
+                                        @if(auth()->user()->hasRole('root') || auth()->user()->hasRole('admin'))
+                                        <li><a href="{{route('blog.admin.categories.index')}}">Admin side</a></li>
+                                        @endif
+                                        <li><a href="#"> {{__('navs.frontend.user.profile')}}</a></li>
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                            >
+                                                {{__('navs.frontend.user.logout')}}
+                                            </a>
+                                            <form id="logout-form"
+                                                  action="{{ route('logout') }}"
+                                                  method="POST"
+                                                  style="display: none;"
+                                            >{{ csrf_field() }}</form>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

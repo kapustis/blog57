@@ -21,9 +21,11 @@ class RolePermissionTableSeeder extends Seeder
                     $role->permissions()->attach($perm->id);
                 }
             }
+
             if ($role->slug == 'admin') { // for a smaller administrator role
                 $slugs = [
-                    'create-post', 'edit-post', 'publish-post', 'delete-post',
+                    'manage-categories','create-category','edit-category','delete-category',
+                    'manage-posts','create-post', 'edit-post', 'publish-post', 'delete-post',
                     'create-comment', 'edit-comment', 'publish-comment', 'delete-comment'
                 ];
 
@@ -32,6 +34,7 @@ class RolePermissionTableSeeder extends Seeder
                     $role->permissions()->attach($perm->id);
                 }
             }
+
             if ($role->slug == 'user') { // just a little bit for the average user
                 $slugs = ['create-post', 'create-comment'];
 

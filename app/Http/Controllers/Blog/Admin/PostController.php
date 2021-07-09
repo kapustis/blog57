@@ -37,9 +37,9 @@ class PostController extends BaseController
         $this->blogPostRepository = $blogPostRepository;
         $this->blogCategoryRepository = $blogCategoryRepository;
 
-        $this->middleware('perm:manage-posts')->only(['index', 'category', 'show']);
+        $this->middleware('perm:manage-posts')->only(['index']);
+        $this->middleware('perm:create-post')->only(['create', 'store']);
         $this->middleware('perm:edit-post')->only(['edit', 'update']);
-        $this->middleware('perm:publish-post')->only(['enable', 'disable']);
         $this->middleware('perm:delete-post')->only('destroy');
     }
 
@@ -100,7 +100,7 @@ class PostController extends BaseController
      * @param $id
      * @return RedirectResponse
      */
-    public function update(BlogPostUpdateRequest $request, $id)
+    public function update(BlogPostUpdateRequest $request, $id): RedirectResponse
     {
         $item = $this->blogPostRepository->getEdit($id);
 
@@ -126,7 +126,7 @@ class PostController extends BaseController
      * @param $id
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         /** мягкое удаление "use SoftDeletes" **/
         $result = BlogPost::destroy($id);
@@ -137,7 +137,7 @@ class PostController extends BaseController
             //$this->dispatch(new BlogPostAfterDeleteJob($id));
             BlogPostAfterDeleteJob::dispatch($id)->delay(25);
 
-            return redirect()->route('blog.admin.posts.index') ->with(['success' => "Запись id[{$id}] удалена"]);
+            return redirect()->route('blog.admin.posts.index')->with(['success' => "Запись id[{$id}] удалена"]);
         }
 
         return back()->withErrors(['msg' => 'Ошибка']);
