@@ -46,8 +46,8 @@ class UserTableSeeder extends Seeder
         $user2->permissions()->attach($createPosts);
 
         $user3 = new User();
-        $user3->name ='User';
-        $user3->email = 'user@mail.com';
+        $user3->name ='Admin2';
+        $user3->email = 'admin2@mail.com';
         $user3->email_verified_at = now();
         $user3->password = bcrypt('12345678');
         $user3->save();
@@ -55,13 +55,22 @@ class UserTableSeeder extends Seeder
         $user3->permissions()->attach($createPosts);
 
         $user4 = new User();
-        $user4->name ='User2';
-        $user4->email = 'user2@mail.com';
+        $user4->name ='User';
+        $user4->email = 'user@mail.com';
         $user4->email_verified_at = now();
         $user4->password = bcrypt('12345678');
         $user4->save();
         $user4->roles()->attach($user);
         $user4->permissions()->attach($createPosts);
+
+        $user5 = new User();
+        $user5->name ='User2';
+        $user5->email = 'user2@mail.com';
+        $user5->email_verified_at = now();
+        $user5->password = bcrypt('12345678');
+        $user5->save();
+        $user5->roles()->attach($user);
+        $user5->permissions()->attach($createPosts);
 
     }
 

@@ -23,11 +23,11 @@ class CategoryController extends BaseController
     /** @var  BlogCategoryRepository */
     private $blogCategoryRepository;
 
-    public function __construct(BlogCategoryRepository $blogCategoryRepository)
+    public function __construct()//(BlogCategoryRepository $blogCategoryRepository)
     {
         parent::__construct();
-//        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
-        $this->blogCategoryRepository = $blogCategoryRepository;
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
+//        $this->blogCategoryRepository = $blogCategoryRepository;
 
         $this->middleware('perm:manage-categories')->only('index');
         $this->middleware('perm:create-category')->only(['create', 'store']);

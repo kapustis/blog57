@@ -23,9 +23,8 @@
 
         @yield('content')
 
-{{--        @include('includes.footer')--}}
+        @include('includes.footer')
     </div>
-
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

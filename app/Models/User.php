@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * Class User
  * @package App\Models
+ * @property int id
  * @property string name
  * @property mixed|string email
  * @property \Illuminate\Support\Carbon|mixed email_verified_at
