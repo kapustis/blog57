@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    {{--    @include('includes.footer')--}}
+        @include('includes.footer')
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>

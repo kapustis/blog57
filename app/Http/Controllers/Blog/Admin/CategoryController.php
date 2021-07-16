@@ -14,6 +14,7 @@ use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 /**
+ * manage blog categories
  * Управление категориями блога
  * @package App\Http\Controllers\Blog\Admin
  */

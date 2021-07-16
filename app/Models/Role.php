@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Role
  * @package App\Models
+ * @property int id
  * @property mixed|string slug
  * @property mixed|string name
  */
@@ -24,6 +25,7 @@ class Role extends Model
     }
 
     /**
+     * Linking the Role model with the User model, allows you to get all users with this role
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

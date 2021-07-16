@@ -52,4 +52,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Linking the Auth model to the Post model, allows you to get all the user's posts
+     * Связь модели Auth с моделью Post, позволяет получить все посты пользователя
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BlogPost::class);
+    }
+
+    /**
+     * Linking the Auth model to the Comment model, allows you to get all the user's comments
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BlogComment::class);
+    }
+
 }

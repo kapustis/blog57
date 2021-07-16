@@ -1,3 +1,9 @@
+@php
+    /**
+     * @var  \App\Models\Role $item
+     * @var \App\Models\User $user
+    **/
+@endphp
 <h5>Роли</h5>
 <div class="form-group d-flex flex-wrap">
     @php

@@ -9,6 +9,11 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Blog user management
+ * Class UserController
+ * @package App\Http\Controllers\Blog\Admin
+ */
 class UserController extends Controller
 {
     public function __construct()
@@ -25,6 +30,13 @@ class UserController extends Controller
         $users = User::paginate(2);
 
         return view('blog.admin.users.index', compact('users'));
+    }
+
+    public function show(User $user)
+    {
+        $roles = Role::all();
+        $perms = Permission::all();
+        return view('blog.admin.users.show', compact('user', 'roles', 'perms'));
     }
 
     /**

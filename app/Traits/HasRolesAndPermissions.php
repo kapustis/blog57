@@ -127,6 +127,7 @@ trait HasRolesAndPermissions
                 $permissions[] = $perm->slug;
             }
         }
+
         return array_values(array_unique($permissions));
     }
 
@@ -139,6 +140,7 @@ trait HasRolesAndPermissions
             $this->getAllPermissions(),
             $this->getAllPermissionsViaRoles()
         );
+
         return array_values(array_unique($perms));
     }
 
@@ -153,8 +155,9 @@ trait HasRolesAndPermissions
      * @param mixed ...$permissions
      * @return $this
      */
-    public function assignPermissions(...$permissions): HasRolesAndPermissions
+    public function assignPermissions(...$permissions)
     {
+//        dd($permissions);
         $permissions = Permission::whereIn('slug', $permissions)->get();
 
         if ($permissions->count() === 0) {

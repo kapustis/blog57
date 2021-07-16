@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Permission
  * @package App\Models
+ * @property int id
  * @property string name
  * @property string slug
  */
