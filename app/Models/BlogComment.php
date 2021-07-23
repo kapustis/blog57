@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +26,8 @@ class BlogComment extends Model
      * Связь модели Comment с моделью Auth, позволяет получить
      * пользователя, который оставил комментарий
      */
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -1,3 +1,5 @@
+@php /** @var \App\Models\BlogPost $post **/ @endphp
+
 @extends('layouts.app',['title' => $post->title])
 
 @section('content')
@@ -22,5 +24,5 @@
             Дата: {{ $post->created_at }}
         </div>
     </div>
-    @include('blog.posts.comments', ['comments' => $comments])
+    @include('blog.posts.comments', ['comments' => $post->comments])
 @endsection

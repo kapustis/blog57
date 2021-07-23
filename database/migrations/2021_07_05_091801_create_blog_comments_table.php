@@ -17,7 +17,6 @@ class CreateBlogCommentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('blog_post_id')->nullable(false);
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('published_by')->nullable();
             $table->string('content', 500)->nullable(false);
             $table->timestamps();
 

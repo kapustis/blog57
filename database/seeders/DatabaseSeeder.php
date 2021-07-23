@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BlogComment;
 use App\Models\BlogPost;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionTableSeeder::class);
         $this->call(UserRoleTableSeeder::class);
         $this->call(BlogCategoriesTableSeeder::class);
-        BlogPost::factory(31)->create();
+        BlogPost::factory(50)->create();
+        BlogComment::factory(50)->create();
     }
 
 }

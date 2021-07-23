@@ -7,7 +7,7 @@
             @if ($post->image)
                 <img src="{{ asset('storage/post/image/'.$post->image) }}" alt="{{ $post->title }}" class="img-fluid"/>
             @else
-                <img src="/images/posts/0{{rand(1,6)}}.jpg" alt="{{ $post->title }}" class="img-fluid">
+                <img src="/images/posts/0{{rand(1,6)}}.jpg" alt="{{ $post->title }}" width="800" height="1200" class="img-fluid">
             @endif
         </div>
         <div class="card-footer">
