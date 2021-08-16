@@ -51,7 +51,7 @@ class PostController extends BaseController
     {
         $search = $request->input('search');
 
-        $posts = BlogPost::where('title', 'LIKE', "%{$request->search}%")->paginate(5)->withQueryString();
+        $posts = BlogPost::where('title', 'LIKE', "%{$request->search}%")->paginate(1)->withQueryString();
 
         return view('blog.posts.search', compact('posts', 'search'));
     }
