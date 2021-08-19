@@ -23,7 +23,11 @@ import Vue from 'vue';
 
 window.events = new Vue();
 
-Vue.component('new-reply', require('./components/NewReply.vue').default);
+Vue.component('blog-item', require('./pages/Blog.vue').default);
+Vue.component('paginator', require('./components/Paginator.vue').default);
+Vue.component('new-reply', require('./components/NewComment.vue').default);
+Vue.component('comments', require('./components/Comments.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

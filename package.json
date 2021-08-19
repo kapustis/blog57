@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.9.3",
+        "moment": "^2.29.1",
         "popper.js": "^1.16.1"
     }
 }

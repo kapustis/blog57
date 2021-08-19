@@ -17,7 +17,7 @@
                         <li><a href="{{ route('login') }}">{{__('navs.frontend.login')}}</a></li>
                         <li><a href="{{ route('register') }}">{{__('navs.frontend.register')}}</a></li>
                     @else
-                        <user-notifications></user-notifications>
+{{--                        <user-notifications></user-notifications>--}}
                         <li>
                             <ul>
                                 <li>

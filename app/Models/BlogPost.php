@@ -70,4 +70,15 @@ class BlogPost extends Model
         return $this->hasMany(BlogComment::class);
     }
 
+    /**
+     * @param array $comment
+     * @return Model
+     */
+    public function addComment(array $comment): Model
+    {
+        $comment = $this->comments()->create($comment);
+        // need add event
+        return $comment;
+    }
+
 }

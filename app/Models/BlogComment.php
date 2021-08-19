@@ -14,19 +14,24 @@ class BlogComment extends Model
         '_method',
         '_token'
     ];
-
+    /**
+     * The relations to eager load on every query.
+     * Отношения к нетерпеливой нагрузке на каждый запрос.
+     * @var array
+     */
+    protected $with = ['owner'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function blogpost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(BlogPost::class,'post_id');
+        return $this->belongsTo(BlogPost::class);
     }
     /**
      * Связь модели Comment с моделью Auth, позволяет получить
      * пользователя, который оставил комментарий
      */
-    public function owner()
+    public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
