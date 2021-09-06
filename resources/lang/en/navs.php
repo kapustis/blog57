@@ -30,5 +30,8 @@ return [
             'profile' => 'My Account',
             'logout' => 'Logout',
         ],
+        'comments' => [
+            'update'=> 'Update'
+        ],
     ],
 ];

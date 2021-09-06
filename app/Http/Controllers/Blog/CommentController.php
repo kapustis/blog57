@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogCommentRequest;
+use App\Models\BlogComment;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
@@ -33,13 +34,28 @@ class CommentController extends Controller
         ])->load('owner');
     }
 
-    public function update()
+    /**
+     * @param BlogComment $comment
+     */
+    public function update(BlogComment $comment)
     {
+        $comment->update(request(['content']));
 
     }
 
-    public function destroy()
+    /**
+     * @param BlogComment $comment
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(BlogComment $comment)
     {
 
+        $comment->delete();
+        if (request()->expectsJson()) {
+            return response(['status' => 'Reply deleted']);
+        }
+
+        return back();
     }
 }

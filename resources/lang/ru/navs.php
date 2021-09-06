@@ -26,5 +26,8 @@ return [
             'profile' => 'Профиль',
             'logout' => 'Выход',
         ],
+        'comments' => [
+            'update'=> 'Обновить'
+        ],
     ],
 ];

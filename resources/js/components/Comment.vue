@@ -9,14 +9,40 @@
         <small v-text="ago"></small>
       </div>
     </div>
-    <div class="card-body">
+
+    <div v-if="editing">
+      <div class="card-body">
+        <div class="form-group">
+          <textarea
+              id="content"
+              name="content"
+              v-model="content"
+              class="form-control"
+              placeholder="Есть что сказать?"
+              rows="5"
+          ></textarea>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button @click="update" type="button" class="btn btn-sm btn-outline-success">Update</button>
+        <button @click="editing = false" type="button" class="btn btn-sm btn-outline-danger">Cancel</button>
+
+      </div>
+    </div>
+
+    <div v-else>
+      <div class="card-body">
         <p class="card-text" v-html="content"></p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-sm btn-outline-success">Reply</button>
+        <div v-if="authorize('master', data)" style="display: inline-block">
+          <button @click="editing = true" type="button" class="btn btn-sm btn-outline-warning">Edit</button>
+          <button @click="destroy" type="button" class="btn btn-sm btn-outline-danger">Remove</button>
+        </div>
+      </div>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-sm btn-outline-success">Reply</button>
-      <button type="button" class="btn btn-sm btn-outline-warning">Edit</button>
-      <button @click="destroy" type="button" class="btn btn-sm btn-outline-danger">Remove</button>
-    </div>
+
   </div>
 </template>
 
@@ -31,6 +57,7 @@ export default {
   props: ['data'],
   data() {
     return {
+      editing: false,
       id: this.data.id,
       content: this.data.content,
     }
@@ -42,12 +69,16 @@ export default {
     },
   },
 
-  methods:{
+  methods: {
     update() {
-      console.log('update')
+      axios.post(`/comments/${this.data.id}`, {content: this.content,_method: 'patch'})
+          .catch(error => {
+            console.log(error);
+          });
+      this.editing = false;
     },
     destroy() {
-      // axios.delete(`/comments/${this.data.id}`);
+      axios.delete(`/comments/${this.data.id}`);
       this.$emit('deleted', this.data.id);
     },
   }
@@ -62,6 +93,7 @@ export default {
   border-radius: 4px;
   margin-bottom: 1em;
 }
+
 .user-img {
   margin-right: 1em;
 }

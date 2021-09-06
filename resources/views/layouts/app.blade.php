@@ -14,6 +14,7 @@
     <script>
       window.default_locale = "{{ app()->getLocale() }}";
       window.fallback_locale = "{{ app()->getLocale() }}";
+      window.Laravel = {!! json_encode(['signedIn' => Auth::check(),'user' => Auth::user()]) !!};
     </script>
 </head>
 <body>

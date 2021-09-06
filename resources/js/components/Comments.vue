@@ -4,7 +4,12 @@
       <Comment :data="comment" @deleted="remove(index)"></Comment>
     </div>
     <paginator :dataSet="dataSet" @changed="fetch"></paginator>
-    <NewComment  @created="add"></NewComment>
+    <div v-if="signedIn">
+      <NewComment  @created="add"></NewComment>
+    </div>
+    <p class="text-center" v-else>
+      Пожалуйста <a href="/login">авторизируйтесь</a> , чтобы принять участие в обсуждении.
+    </p>
   </div>
 </template>
 

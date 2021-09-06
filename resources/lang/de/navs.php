@@ -25,5 +25,8 @@ return [
             'profile' => 'Profile',
             'logout' => 'Abmelden',
         ],
+        'comments' => [
+            'update'=> 'Update'
+        ],
     ],
 ];

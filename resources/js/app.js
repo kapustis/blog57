@@ -6,9 +6,26 @@
 
 require('./bootstrap');
 
-// window.Vue = require('vue').default;
 import Vue from 'vue';
 
+
+let authorization = require('./authorizations')
+
+Vue.prototype.authorize = function (...params) {
+    if (!window.Laravel.signedIn) {
+        return false;
+    }
+
+    if (typeof params[0] === 'string') {
+        return authorization[params[0]](params[1]);
+    }
+
+    return params[0](window.Laravel.user);
+};
+
+
+
+Vue.prototype.signedIn = window.Laravel.signedIn;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
