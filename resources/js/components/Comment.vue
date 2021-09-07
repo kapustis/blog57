@@ -26,7 +26,6 @@
       <div class="card-footer">
         <button @click="update" type="button" class="btn btn-sm btn-outline-success">Update</button>
         <button @click="editing = false" type="button" class="btn btn-sm btn-outline-danger">Cancel</button>
-
       </div>
     </div>
 
@@ -35,7 +34,7 @@
         <p class="card-text" v-html="content"></p>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-sm btn-outline-success">Reply</button>
+<!--        <button type="button" class="btn btn-sm btn-outline-success">Reply</button>-->
         <div v-if="authorize('master', data)" style="display: inline-block">
           <button @click="editing = true" type="button" class="btn btn-sm btn-outline-warning">Edit</button>
           <button @click="destroy" type="button" class="btn btn-sm btn-outline-danger">Remove</button>
@@ -71,11 +70,14 @@ export default {
 
   methods: {
     update() {
-      axios.post(`/comments/${this.data.id}`, {content: this.content,_method: 'patch'})
+      axios.patch(`/comments/${this.data.id}`, {content: this.content})
           .catch(error => {
-            console.log(error);
+            flash('Error update','danger');
+            // flash(error.response.data,'danger');
           });
+
       this.editing = false;
+      flash('Updated!','success');
     },
     destroy() {
       axios.delete(`/comments/${this.data.id}`);

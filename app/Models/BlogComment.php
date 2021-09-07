@@ -14,6 +14,7 @@ class BlogComment extends Model
         '_method',
         '_token'
     ];
+
     /**
      * The relations to eager load on every query.
      * Отношения к нетерпеливой нагрузке на каждый запрос.

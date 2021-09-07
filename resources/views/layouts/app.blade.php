@@ -30,6 +30,7 @@
 
             <div class="col-md-9">
                 @yield('content')
+                <flash message="{{session('flash')}}"></flash>
             </div>
         </div>
     </div>

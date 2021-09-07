@@ -42,8 +42,9 @@ window.events = new Vue();
 
 Vue.component('blog-item', require('./pages/Blog.vue').default);
 Vue.component('paginator', require('./components/Paginator.vue').default);
-Vue.component('new-reply', require('./components/NewComment.vue').default);
+Vue.component('new-comment', require('./components/NewComment.vue').default);
 Vue.component('comments', require('./components/Comments.vue').default);
+Vue.component('Flash',require('./components/Flash').default);
 
 
 /**
@@ -55,3 +56,7 @@ Vue.component('comments', require('./components/Comments.vue').default);
 const app = new Vue({
     el: '#app',
 });
+
+window.flash = function (message, level = 'success') {
+    window.events.$emit('flash', {message, level});
+};

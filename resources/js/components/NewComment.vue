@@ -27,14 +27,15 @@ export default {
     addComment() {
       axios.post(location.pathname + '/comments', {content: this.content})
       .catch(error => {
-        console.log(error.response.data)
+        // flash(error.response.data)
+        flash('Error! Your answer has not been posted!','danger');
       })
       .then(({data}) => {
         this.content = '';
         this.$emit('created', data);
+        flash('Your reply has been posted');
       });
     }
-
   },
 }
 </script>
