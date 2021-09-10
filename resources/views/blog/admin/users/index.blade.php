@@ -43,6 +43,6 @@
             </div>
         </div>
 
-        {{ $users->links("vendor.pagination.simple-bootstrap-4") }}
+        {{ $users->links("vendor.pagination.default") }}
     </div>
 @endsection

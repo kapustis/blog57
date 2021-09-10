@@ -9,7 +9,11 @@ use Illuminate\Http\Request;
 
 class UserRoleController extends Controller
 {
-
+    /**
+     * @param User $user
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function assignRole(User $user, Role $role)
     {
         if (!auth()->user()->hasPermAnyWay('assign-role')) {
@@ -22,6 +26,11 @@ class UserRoleController extends Controller
             ->with('success', 'Данные пользователя успешно обновлены');
     }
 
+    /**
+     * @param User $user
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function unassignRole(User $user, Role $role)
     {
         if ( ! auth()->user()->hasPermAnyWay('assign-role')) {

@@ -1,21 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation"
-    >
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="container mt-3 mb-3">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            {{--            <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>--}}
+            {{--            <li><a href="#" class="nav-link px-2 text-white">Features</a></li>--}}
+            {{--            <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>--}}
+            {{--            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>--}}
+            {{--            <li><a href="#" class="nav-link px-2 text-white">About</a></li>--}}
         </ul>
-        <form method="get" action="{{route('blog.posts.search')}}" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" name="search"
+
+        <form id="search" method="get" action="{{route('blog.posts.search')}}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <input class="form-control form-control-dark"
+                   type="search" name="search"
                    @if(isset($search)) value="{{$search}}" @endif
-                   placeholder="Search" aria-label="Search"
-            >
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                   placeholder="Search" aria-label="Search">
         </form>
+
+        <div class="text-end">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" form="search">Search</button>
+        </div>
     </div>
-</nav>
+</div>

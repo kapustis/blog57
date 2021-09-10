@@ -24,6 +24,7 @@ class PostController extends BaseController
 
     /** @var BlogPostRepository * */
     private $blogPostRepository;
+
     /** @var  BlogCategoryRepository * */
     private $blogCategoryRepository;
 
@@ -63,6 +64,10 @@ class PostController extends BaseController
         return view('blog.admin.posts.edit', compact('item', 'categoryList'));
     }
 
+    /**
+     * @param BlogPostCreateRequest $request
+     * @return RedirectResponse
+     */
     public function store(BlogPostCreateRequest $request)
     {
         $data = $request->input();

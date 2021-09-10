@@ -55,7 +55,7 @@
 </script>
 
 <style scoped>
-.pagination li {
-    border: none;
-}
+/*.pagination li {*/
+/*    border: none;*/
+/*}*/
 </style>

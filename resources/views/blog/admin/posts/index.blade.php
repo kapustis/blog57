@@ -24,8 +24,8 @@
                             @foreach($posts as $item)
                                 @php /** @var \App\Models\BlogPost $item */ @endphp
                                 <tr
-                                    @if($item->is_published)  style="background-color:#2a9055;" @endif
-                                    @if(!$item->is_published) style="background-color:#f66D9b;" @endif
+                                        @if($item->is_published)  style="background-color:#2a9055;" @endif
+                                        @if(!$item->is_published) style="background-color:#f66D9b;" @endif
                                 >
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->creator->name}}</td>
@@ -48,11 +48,11 @@
             <br>
             <div class="row justify-content-center">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body">--}}
                             {{$posts->links("vendor.pagination.default")}}
-                        </div>
-                    </div>
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         @endif

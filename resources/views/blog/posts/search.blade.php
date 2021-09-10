@@ -7,8 +7,9 @@
     @if($posts->count())
         @include('blog.posts._lists')
 
-        {{ $posts->links('vendor.pagination.default') }}
-
+        <div class="d-flex justify-content-center mb-5">
+            {{ $posts->links('vendor.pagination.default') }}
+        </div>
     @else
         <p>По вашему запросу ничего не найдено</p>
     @endif

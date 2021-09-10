@@ -11,7 +11,6 @@ class UserPermissionController extends Controller
 {
     public function assignPermission(User $user, Permission $permission)
     {
-//        dd($permission->slug);
         if ( ! auth()->user()->hasPermAnyWay('assign-permission')) {
             return redirect()
                 ->route('blog.admin.users.show', $user)
