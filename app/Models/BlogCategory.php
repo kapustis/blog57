@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,11 +22,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogCategory extends Model
 {
-    use SoftDeletes;
+    use HasFactory,SoftDeletes;
 
     const ROOT_ID = 1;
 
     protected $fillable = ['parent_id', 'title', 'slug', 'description'];
+
+
+    public function posts(){
+        return $this->hasMany(BlogPost::class);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

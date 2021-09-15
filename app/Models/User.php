@@ -60,7 +60,7 @@ class User extends Authenticatable
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BlogPost::class);
+        return $this->hasMany(BlogPost::class)->latest();
     }
 
     /**
@@ -72,4 +72,15 @@ class User extends Authenticatable
         return $this->hasMany(BlogComment::class);
     }
 
+
+
+
+    /**
+     * Получить последний опубликованный комментарии для пользователя
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastComment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(BlogComment::class)->latest();
+    }
 }

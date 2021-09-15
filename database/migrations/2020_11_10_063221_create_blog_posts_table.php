@@ -16,7 +16,7 @@ class CreateBlogPostsTable extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('blog_category_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
 
             $table->string('slug')->unique();
@@ -34,7 +34,7 @@ class CreateBlogPostsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('blog_categories');
+            $table->foreign('blog_category_id')->references('id')->on('blog_categories');
             $table->index('is_published');
         });
     }

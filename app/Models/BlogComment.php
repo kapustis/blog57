@@ -15,6 +15,10 @@ class BlogComment extends Model
         '_token'
     ];
 
+    protected $fillable = [
+        "blog_post_id", "user_id", "content"
+    ];
+
     /**
      * The relations to eager load on every query.
      * Отношения к нетерпеливой нагрузке на каждый запрос.

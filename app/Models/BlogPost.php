@@ -27,17 +27,16 @@ class BlogPost extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const UNKNOWN_USER = 4;
-
 //    protected $guarded = [
 //        '_method',
 //        '_token'
 //    ];
 
     protected $fillable = [
-        'title', 'slug', 'category_id',
-        'content_html', 'content_raw', 'excerpt',
-        'published_at', 'is_published',
+        'blog_category_id', "user_id",'title', 'slug',
+        'excerpt', 'content_raw','content_html',
+        'is_published','published_at',
+
     ];
 
     /**
@@ -46,7 +45,7 @@ class BlogPost extends Model
      **/
     public function category(): BelongsTo
     {
-        return $this->belongsTo(BlogCategory::class, 'category_id');
+        return $this->belongsTo(BlogCategory::class, 'blog_category_id');
     }
 
     /**

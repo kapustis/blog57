@@ -18,7 +18,6 @@ class CheckUserPermission
     public function handle(Request $request, Closure $next,$perm)
     {
         if (!auth()->user()->hasPermAnyWay($perm)) {
-            dd('тебе сюда нельзя');
             abort(404);
         }
 

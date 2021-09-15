@@ -65,12 +65,10 @@ class PostController extends BaseController
     {
         $post = $this->blogPostRepository->getItem($id);
 
-        $comments = $post->comments()->orderBy('created_at')->paginate(5);
-
         if (empty($post)) {
             abort(404);
         }
 
-        return view('blog.posts.show', compact('post', 'comments'));
+        return view('blog.posts.show', compact('post'));
     }
 }

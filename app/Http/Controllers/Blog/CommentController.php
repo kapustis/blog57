@@ -15,7 +15,11 @@ class CommentController extends Controller
         $this->middleware('auth', ['except' => 'index']);
     }
 
-    public function index(BlogPost $post)
+    /**
+     * @param BlogPost $post
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function index(BlogPost $post): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $post->comments()->paginate(5);
     }

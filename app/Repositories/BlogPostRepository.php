@@ -28,7 +28,7 @@ class BlogPostRepository extends CoreRepository
     public function getAllWithPaginate($perPage = null)
     {
         $fields = [
-            'id', 'title', 'slug', 'category_id',
+            'id', 'title', 'slug', 'blog_category_id',
             'user_id', 'is_published', 'published_at'
         ];
 

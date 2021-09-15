@@ -61,6 +61,7 @@ class PostController extends BaseController
     {
         $item = BlogPost::make();
         $categoryList = $this->blogCategoryRepository->getCategoryList();
+
         return view('blog.admin.posts.edit', compact('item', 'categoryList'));
     }
 
